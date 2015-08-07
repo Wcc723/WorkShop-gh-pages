@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Validation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/stylesheets/secret.css">
+	<script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
+	<script src="/ngValidation/all.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="mtxl row" ng-controller="ngFormCtrl">
+		<form class="col-sm-8 col-sm-offset-2" name="ngForm1" novalidate ng-submit="ok(modal1)">
+			<h4>一般驗證</h4>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm1.name.$invalid && ngForm1.name.$touched }">
+				<label>姓名</label>
+				<input type="text" class="form-control" name="name" placeholder="Enter name" ng-model="modal1.name" maxlength="200" ng-minlength="3" required>
+				<span ng-show="ngForm1.name.$invalid && ngForm1.name.$touched " class="text-danger help-block">請輸入姓名 (最少三個字)</span>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm1.password.$invalid && ngForm1.password.$touched }">
+				<label>Password 驗證</label>
+				<input type="password" class="form-control" name="password" placeholder="Enter password" ng-pattern="/^[a-zA-Z]\w{5,17}$/" ng-model="modal1.password"  maxlength="200" required>
+				<span ng-show="ngForm1.password.$invalid && ngForm1.password.$touched" class="text-danger help-block">以字母開頭，長度在6-18之間，只能包含字符、數字和下劃線</span>
+
+				<input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" ng-model="modal1.password2" maxlength="200" required match-to="modal1.password" />
+				<span ng-show="ngForm1.confirmPassword.$touched && ngForm1.confirmPassword.$error.matchTo" class="help-block"><span class="text-danger ">兩組密碼不相同</span></span>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm1.email.$invalid && ngForm1.email.$touched }">
+				<label>Email 驗證</label>
+				<input type="email" class="form-control" name="email" placeholder="Enter email" ng-model="modal1.email" maxlength="200" required>
+				<span ng-show=" ngForm1.email.$invalid && ngForm1.email.$touched " class="text-danger help-block">請輸入正確的E-mail</span>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm1.number.$invalid && ngForm1.number.$touched }">
+				<label>正規式驗證 (純數字)</label>
+				<input type="text" class="form-control" name="number" placeholder="正規式驗證 (純數字)" ng-model="modal1.number" maxlength="200" ng-pattern="/^-?[0-9]*(\.[0-9]+)?$/">
+				<span ng-show=" ngForm1.number.$invalid && ngForm1.number.$touched " class="text-danger help-block">請輸入正確的純數字</span>
+			</div>
+			<div class="form-group">
+				<label>辦公室電話 (二擇一)</label>
+				<input type="tel" class="form-control" name="tel_office" placeholder="請輸入辦公室電話" ng-model="modal1.tel_office" maxlength="200" ng-required='!modal1.tel_mobile'>
+			</div>
+			<div class="form-group">
+				<label>行動電話 (二擇一)</label>
+				<input type="tel" class="form-control" name="tel_mobile" placeholder="請輸入行動電話" ng-model="modal1.tel_mobile" maxlength="200" ng-required='!modal1.tel_office'>
+			</div>
+			<div class="alert alert-warning" ng-show="ngForm1.tel_office.$invalid && ngForm1.tel_mobile.$invalid && ngForm1.tel_office.$touched && ngForm1.tel_mobile.$touched ">
+				<strong>辦公室電話</strong> 及 <strong>行動電話</strong> 必須擇一填寫
+			</div>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="custom" ng-model="modal1.custom"> 自訂選項
+				</label>
+			</div>
+			<div class="form-group" ng-show="modal1.custom">
+				<label>自訂</label>
+				<input type="text" class="form-control" name="customText" placeholder="Enter text" ng-model="modal1.customText" maxlength="200" ng-required='modal1.custom'>
+				<span ng-show=" ngForm1.customText.$invalid && ngForm1.customText.$touched " class="text-danger help-block">寫點字嘛～</span>
+			</div>
+
+			<div class="radio">
+				<label class="mrm">
+					<input type="radio" name="sex" ng-model="modal1.sex"> 男
+				</label>
+				<label class="mrm">
+					<input type="radio" name="sex" ng-model="modal1.sex"> 女
+				</label>
+				<label class="mrm">
+					<input type="radio" name="sex" ng-model="modal1.sex"> 其他
+				</label>
+			</div>
+			<pre>
+				{{ modal1 | json }}
+			</pre>
+			
+			<div class="form-group text-right">
+				<button class="btn btn-success" type="submit" ng-disabled="ngForm1.$invalid">確認</button>
+			</div>
+		</form>
+
+		<hr>
+
+		<form class="col-sm-8 col-sm-offset-2" name="ngForm2" novalidate ng-submit="ok(modal2)">
+			<h4>修改儲存</h4>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm2.name.$invalid && ngForm2.name.$touched }">
+				<label>姓名</label>
+				<input type="text" class="form-control" name="name" placeholder="Enter name" ng-model="modal2.name" maxlength="200" required>
+				<span ng-show="ngForm2.name.$invalid && ngForm2.name.$touched " class="text-danger help-block">請輸入姓名</span>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : ngForm2.email.$invalid && ngForm2.email.$touched }">
+				<label>Email 驗證</label>
+				<input type="email" class="form-control" name="email" placeholder="Enter email" ng-model="modal2.email" maxlength="200" required>
+				<span ng-show=" ngForm2.email.$invalid && ngForm2.email.$touched " class="text-danger help-block">請輸入正確的E-mail</span>
+			</div>
+			<div class="form-group">
+				<label>辦公室電話 (二擇一)</label>
+				<input type="tel" class="form-control" name="tel_office" placeholder="請輸入辦公室電話" ng-model="modal2.tel_office" maxlength="200" ng-required='!modal2.tel_mobile'>
+			</div>
+			<div class="form-group">
+				<label>行動電話 (二擇一)</label>
+				<input type="tel" class="form-control" name="tel_mobile" placeholder="請輸入行動電話" ng-model="modal2.tel_mobile" maxlength="200" ng-required='!modal2.tel_office'>
+			</div>
+			<div class="alert alert-warning" ng-show="ngForm2.tel_office.$invalid && ngForm2.tel_mobile.$invalid && ngForm2.tel_office.$touched && ngForm2.tel_mobile.$touched ">
+				<strong>辦公室電話</strong> 及 <strong>行動電話</strong> 必須擇一填寫
+			</div>
+
+			<div class="form-group text-right">
+				<button class="btn btn-primary" type="submit" ng-disabled="ngForm2.$invalid || ngForm2.$pristine">保存</button>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>
