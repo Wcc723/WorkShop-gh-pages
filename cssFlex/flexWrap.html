@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Textarea</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../stylesheets/secret.css">
+	<script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
+	<script src="../cssFlex/all.js"></script>
+</head>
+<style>
+.flex {
+  display: flex;
+}
+
+.flex-1{
+  flex: 1;
+}
+
+lable {
+  display: block
+}
+.flexWrap {
+  display: flex;
+}
+.wh100px {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  background: deepskyblue;
+}
+
+.wh200px {
+  width: 200px;
+  height: 200px;
+  line-height: 150px;
+  background: #a10854;
+}
+
+.orange {
+  background: orange;
+}
+</style> 
+<body>
+	<div class="container"  ng-controller="appCtrl as app">
+		<div class="flex">
+			<div class="flex-1" ng-repeat="(key ,item) in app.wrapProps">
+				<lable ng-bind="item.propName"></lable>
+				<select ng-model="item.value" 
+				        ng-change="app.choseProp(app.wrapProps)" 
+				        ng-options="item for item in item.props">
+					<option value=""> --請選擇-- </option>
+				</select>
+			</div>
+		</div>
+		<div class="demo flexWrap mtm mbm"
+			ng-style="app.flexWrap">
+			<div class="wh100px">100px</div>
+			<div class="wh200px">200px</div>
+			<div class="wh100px orange">100px</div>
+		</div>
+	</div>
+</body>
+</html>
