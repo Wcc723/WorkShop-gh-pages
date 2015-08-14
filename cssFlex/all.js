@@ -71,7 +71,7 @@ var wrapProp = [
   {
     propName: 'justify-content',
     props: [
-  'flex-start' , 'flex-end' , 'center' , 'space-between' , 'space-around'
+  'flex-start' , 'flex-end' , 'center' , 'space-between' , 'space-around', 'stretch'
   ]},
   {
     propName: 'flex-direction',
