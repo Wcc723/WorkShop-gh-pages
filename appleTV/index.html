@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Validation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../stylesheets/secret.css">
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<style>
+	html {
+		height: 100%;
+	}
+	body {
+		background-image: url("http://images.apple.com/v/osx/c/images/overview/hero_xlarge.jpg");
+		background-repeat: no-repeat;
+		height: 200%;
+		width: 100%;
+	}
+	.navbar {
+		border: 0;
+	}
+	.nav-img {
+		position: relative;
+		border: 0;
+		background-color: transparent;
+		overflow: hidden;
+	}
+	.nav-img-before {
+		position: absolute;
+		display: block;
+		top: -20px;
+		left: -20px;
+		right: -20px;
+		bottom: -20px;
+		background-image: url("http://images.apple.com/v/osx/c/images/overview/hero_xlarge.jpg");
+		background-repeat: no-repeat;
+		-webkit-filter: blur(10px);
+		filter: blur(10px);
+		background-attachment: local;
+	}
+</style>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="nav-img">
+		<div class="nav-img-before"></div>
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">
+	      </a>
+	    </div>
+
+		<div class="navbar-left">
+			<ul class="nav navbar-nav">
+		    	<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+		        <li><a href="#">Link</a></li>
+	        </ul>
+	    </div>
+
+	  </div>
+  </div>
+</nav>
+
+</body>
+<script>
+$(document).ready(function(){
+    $(window).scroll(function(e){
+    	var blur = 20;
+        var scrollVal = $(this).scrollTop();
+        num = scrollVal - blur;
+        if (num <= 0) {
+        	num = 0;
+        }
+        $('.nav-img-before').css({'background-position': '0 ' +  -num +'px'});
+        console.log({'background-position': '0 ' +  -num +'px'})
+    })
+})
+</script>
+</html>
