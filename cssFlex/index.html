@@ -40,14 +40,14 @@ lable {
 .orange {
   background: orange;
 }
-</style> 
+</style>
 <body>
 	<div class="container"  ng-controller="appCtrl as app">
 		<div class="flex">
 			<div class="flex-1" ng-repeat="(key ,item) in app.wrapProps">
 				<lable ng-bind="item.propName"></lable>
-				<select ng-model="item.value" 
-				        ng-change="app.choseProp(app.wrapProps)" 
+				<select ng-model="item.value"
+				        ng-change="app.choseProp(app.wrapProps)"
 				        ng-options="item for item in item.props">
 					<option value=""> --請選擇-- </option>
 				</select>
@@ -58,11 +58,11 @@ lable {
 			<div ng-repeat="(key ,flex) in app.flexitems" ng-style="flex.style">
 				<div ng-repeat="(key ,inline) in app.inlineProps"  class="pull-left mrs">
 					<lable ng-bind="inline.propName"></lable>
-					<select ng-model="flex.style[inline.propName]" 
-					      ng-change="app.choseProp()" 
+					<select ng-model="flex.style[inline.propName]"
+					      ng-change="app.choseProp()"
 					      ng-options="item for item in inline.props">
 						<option value=""> --請選擇-- </option>
-					</select> 
+					</select>
 				</div>
 				<a class="btn btn-xs btn-danger mtm" ng-click="app.removeObject(key)">移除本元件</a>
 			</div>

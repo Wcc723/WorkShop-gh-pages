@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Flex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../stylesheets/secret.css">
+  <script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
+  <script src="../cssBlendMode/all.js"></script>
+</head>
+<style>
+  .demo-img {
+    width: 600px;
+    height: 600px;
+    max-width: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+</style>
+<body>
+  <div class="container mtl"  ng-controller="appCtrl as app">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>Blend Mode</label>
+          <select
+                class="form-control"
+                ng-model="app.blend"
+                ng-change="app.choseProp()"
+                ng-options="item for item in app.blendProp.props">
+            <option value=""> --請選擇-- </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Background Color</label>
+          <input type="color" class="form-control" ng-model="app.color" ng-change="app.choseProp()">
+        </div>
+      </div>
+      <div class="col-sm-9">
+        <div class="demo-img"
+        ng-style='app.style'
+        style="background-image: url(https://dbjdsnch130xu.cloudfront.net/uploads/recipe/cover/126785/large_fe14dd30ea0b720b.jpg);
+        "></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
