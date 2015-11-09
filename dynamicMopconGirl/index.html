@@ -74,6 +74,8 @@ body {
 .pos-a {
   position: absolute;
   left: 0;
+  top: 0;
+  right: 0;
   bottom: 0;
 }
 </style>
@@ -91,9 +93,11 @@ body {
       background-size: cover;
       background-position: center center;
       ">
-        <img class="hasDropShadow pos-a" src="2.png" data-z="20" alt="">
-        <img class="hasDropShadow pos-a" src="3.png" data-z="40" alt="">
-        <img class="hasDropShadow pos-a" src="1.png" data-z="60" alt="">
+        <div class="hasBlink pos-a" data-z="11"></div>
+        <img class="hasDropShadow pos-a" src="2.png" data-z="10" alt="">
+        <img class="hasDropShadow pos-a" src="3.png" data-z="15" alt="">
+        <img class="hasDropShadow pos-a" src="1.png" data-z="20" alt="">
+
       </div>
       <!-- <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -114,8 +118,11 @@ $(document).ready(function() {
       z = $(this).attr('data-z');
       addDropShadow(this, b, z); //傳入滑鼠位置
     });
+    $('.hasBlink').each(function() {
+      z = $(this).attr('data-z');
+      addBlink(this, b, z); //傳入滑鼠位置
+    });
     $('.modal-3d').each(function() {
-
       add3d(this, b); //傳入滑鼠位置
     });
   });
@@ -151,7 +158,6 @@ function add3d(element, b) {
   })
 }
 function addDropShadow(element, b, z) {
-  console.log(z)
   // 滑鼠在頁面上的位置
   var m_x = b.pageX;
   var m_y = b.pageY;
@@ -179,6 +185,41 @@ function addDropShadow(element, b, z) {
   transform = 'translateX(' + s_x/3 + 'px) translateY(' + (s_y/3) + 'px) translateZ(' + z + 'px)';
   $(element).css({
     // '-webkit-filter': dropShadow,
+    'transform': transform
+  })
+}
+
+
+function addBlink(element, b, z) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  // 物件在頁面上的位置
+  var o_x = $(element).offset().left + $(element).width() / 2;
+  var o_y = $(element).offset().top + $(element).height() / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
+  s_y = Math.sqrt(Math.abs(w_y)); // 垂直距離拉近一點比較有質感
+  s_b = w_l / 6; // 模糊程度，距離越遠越糊
+  if (w_x < 0 ){
+    s_x = - s_x;
+  }
+  if (w_y < 0 ){
+    s_y = - s_y;
+  }
+
+  gradient = 'linear-gradient(' + (-s_y + 180) + 'deg, transparent ' + (0 - s_y*4) + '%, rgba(255,255,255, .6) ' + (10 - s_y*4) + '%, transparent ' + (40 - s_y*4) + '%)';
+  transform = 'translateX(' + s_x + 'px) translateY(' + s_y + 'px) translateZ(' + z + 'px)';
+  $(element).css({
+    // '-webkit-filter': dropShadow,
+    'background-image': gradient,
     'transform': transform
   })
 }
