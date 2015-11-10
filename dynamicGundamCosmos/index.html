@@ -16,6 +16,7 @@ body {
   margin: 0px;
   background: #ecf0f1;
   font-size: 20px;
+  overflow: hidden;
 }
 .wrap {
   height: 100%;
@@ -30,84 +31,35 @@ body {
   justify-content: center;
 }
 
-
-.modal.in {
-  display: -webkit-flex;
-  display: flex !important;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-.modal.fade .modal-dialog.modal-dialog {
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-}
-.modal.fade.in .modal-dialog.modal-dialog {
-  opacity: 1;
-  -webkit-transition: opacity 0.3s ease-out;
-  -moz-transition: opacity 0.3s ease-out;
-  -o-transition: opacity 0.3s ease-out;
-  transition: opacity 0.3s ease-out;
-}
-
 .perspective-3d {
   transform-style: preserve-3d;
   perspective: 1500px;
 }
-.modal-content.no-shadow {
-  box-shadow: none;
+.bg-cosmos {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  margin-left: -50%;
+}
+.gundam {
+  position: absolute;
+  left: 40%;
+  bottom: 10%;
+  max-width: 50%;
 }
 </style>
 <body>
-
-<div class="wrap">
-  <div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      Launch demo modal
-    </button>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal perspective-3d fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-3d" role="document">
-    <div class="modal-content no-shadow">
-      <!-- <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div> -->
-      <div class="modal-body text-right" style="background: url(http://farm3.static.flickr.com/2442/3938055616_a388a158f0_o.png);
-      background-size: cover;
-      background-position: center center;
-      ">
-        <img class="hasDropShadow" src="c002.png" height="289" width="294" alt="">
-      </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-    </div>
-  </div>
-</div>
-
+  <img src="Cosmos07.jpg" class="bg-cosmos pos-3d" data-layer="1" alt="">
+  <img src="gp03d.png" class="gundam pos-3d" data-layer="7" alt="">
 </body>
 <script>
 $(document).ready(function() {
   $(document).mousemove(function(b) {
-    $('.hasShadow').each(function() {
-      addShadow(this, b); //傳入滑鼠位置
-    });
     $('.hasDropShadow').each(function() {
       addDropShadow(this, b); //傳入滑鼠位置
     });
-    $('.modal-3d').each(function() {
+    $('.pos-3d').each(function() {
       add3d(this, b); //傳入滑鼠位置
     });
   });
@@ -118,60 +70,37 @@ function add3d(element, b) {
   var m_x = b.pageX;
   var m_y = b.pageY;
 
+  var w_w = window.innerWidth, //window width
+  w_h = window.innerHeight,
+  o_w = $(element).width(),
+  distance = (($(element).width() - w_w) / 2),
+  layer = Number($(element).attr('data-layer'));
+
   // 物件在頁面上的位置
-  var o_x = $(element).offset().left + $(element).width() / 2;
-  var o_y = $(element).offset().top + $(element).height() / 2;
+  var o_x = w_w / 2;
+  var o_y = w_h / 2;
 
   // 兩者的距離差
   w_x = m_x - o_x;
   w_y = m_y - o_y;
 
   // 距離相乘後開平方
-  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+  w_wSqrt = Math.sqrt(w_w / 2)
+  d = distance / w_wSqrt / layer
+  //
   s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
-  s_y = Math.sqrt(Math.abs(w_y / 2)); // 垂直距離拉近一點比較有質感
-  s_b = w_l / 2; // 模糊程度，距離越遠越糊
   if (w_x < 0 ){
     s_x = - s_x;
   }
-  if (w_y < 0 ){
-    s_y = - s_y;
-  }
+  d_x = s_x * d;
+  console.log(s_x, o_x, d, layer)
   $(element).css({
-    'transform': 'rotateY(' + s_x + 'deg) rotateX(' + (-s_y) + 'deg)',
-    'box-shadow': (-s_x*2) + 'px ' + (-s_y*2) + 'px ' + s_b + 'px rgba(0,0,0, .5)'
+    'transform': 'translateX(' + (d_x) + 'px)',
+    'margin-left': '-' + (o_w / 2) + 'px'
   })
 }
-function addDropShadow(element, b) {
-  // 滑鼠在頁面上的位置
-  var m_x = b.pageX;
-  var m_y = b.pageY;
+// function (element, b) {
 
-  // 物件在頁面上的位置
-  var o_x = $(element).offset().left + $(element).width() / 2;
-  var o_y = $(element).offset().top + $(element).height() / 2;
-
-  // 兩者的距離差
-  w_x = m_x - o_x;
-  w_y = m_y - o_y;
-
-  // 距離相乘後開平方
-  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
-  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
-  s_y = Math.sqrt(Math.abs(w_y / 2)); // 垂直距離拉近一點比較有質感
-  s_b = w_l / 6; // 模糊程度，距離越遠越糊
-  if (w_x < 0 ){
-    s_x = - s_x;
-  }
-  if (w_y < 0 ){
-    s_y = - s_y;
-  }
-  dropShadow = 'drop-shadow(' + (-s_x/2) + 'px ' + (-s_y/2) + 'px 10px rgba(0,0,0, .5))';
-  transform = 'translateX(' + s_x/4 + 'px) translateY(' + (s_y/4) + 'px)';
-  $(element).css({
-    '-webkit-filter': dropShadow,
-    'transform': transform
-  })
-}
+// }
 </script>
 </html>
