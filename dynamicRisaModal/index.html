@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Modal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link rel="stylesheet" href="../stylesheets/secret.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</head>
+<style>
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  background: #ecf0f1;
+  font-size: 20px;
+}
+.wrap {
+  height: 100%;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+
+.modal.in {
+  display: -webkit-flex;
+  display: flex !important;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.modal.fade .modal-dialog.modal-dialog {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.modal.fade.in .modal-dialog.modal-dialog {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease-out;
+  -moz-transition: opacity 0.3s ease-out;
+  -o-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+.modal-risa {
+  background-color: #EDE5DD;
+  /*background-color: #000;*/
+  box-shadow: 0 0 0 15px #EDE5DD inset, 0 0 0 30px #E3DFDB inset;
+  padding: 110px;
+}
+.perspective-3d {
+  transform-style: preserve-3d;
+  perspective: 1500px;
+}
+.modal-content.no-shadow {
+  box-shadow: none;
+}
+.modal-dialog.modal-3d {
+  width: auto;
+}
+.text-gray {
+  color: #B1AAA4;
+}
+.btn-radius {
+  border-radius: 50px;
+}
+.avatar {
+  border-radius: 0;
+  background-size: cover;
+}
+/* card */
+.card {
+  background-color: #fff;
+  border: 1px solid #D7D5D8;
+  padding: 10px 15px;
+}
+
+/* div flex */
+.flex {
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+.flex-s {
+  flex: 0 0 50px;
+}
+.flex-m {
+  flex: 0 0 80px;
+}
+</style>
+<body>
+
+<div class="wrap">
+  <div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Launch demo modal
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal perspective-3d fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-3d" role="document">
+    <div class="modal-content modal-risa hasBlink">
+      <div class="modal-header">
+        <img src="score.svg">
+      </div>
+      <div class="modal-body">
+        <div class="card hasDropShadow mbl">
+          <div class="flex">
+            <div class="flex-s flex">15</div>
+            <div class="flex-m">
+              <div class="avatar" style="background-image: url(http://api.randomuser.me/portraits/med/women/29.jpg)"></div>
+            </div>
+            <div class="flex-1 flex-column">
+              <div class="text-left">
+                Risa
+              </div>
+              <div class="text-gray">
+                Score: 123
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hasDropShadow">
+          <div class="card">
+            <div class="flex">
+              <div class="flex-s flex">1</div>
+              <div class="flex-m">
+                <div class="avatar" style="background-image: url(http://api.randomuser.me/portraits/med/women/35.jpg)"></div>
+              </div>
+              <div class="flex-1 flex-column">
+                <div class="text-left">
+                  王 若施
+                </div>
+                <div class="text-gray">
+                  Score: 9999
+                </div>
+              </div>
+              <div class="flex-m">
+                <img src="trophy1.svg">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="flex">
+              <div class="flex-s flex">2</div>
+              <div class="flex-m">
+                <div class="avatar" style="background-image: url(http://api.randomuser.me/portraits/med/women/38.jpg)"></div>
+              </div>
+              <div class="flex-1 flex-column">
+                <div class="text-left">
+                  錢井 千代
+                </div>
+                <div class="text-gray">
+                  Score: 9999
+                </div>
+              </div>
+              <div class="flex-m">
+                <img src="trophy2.svg">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="flex">
+              <div class="flex-s flex">3</div>
+              <div class="flex-m">
+                <div class="avatar" style="background-image: url(http://api.randomuser.me/portraits/med/women/39.jpg)"></div>
+              </div>
+              <div class="flex-1 flex-column">
+                <div class="text-left">
+                  月夜 Riku
+                </div>
+                <div class="text-gray">
+                  Score: 9999
+                </div>
+              </div>
+              <div class="flex-m">
+                <img src="trophy3.svg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mtxl">
+          <a href="#" class="btn btn-default btn-radius btn-lg">更 多 排 名</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script>
+$(document).ready(function() {
+  $(document).mousemove(function(b) {
+    // $('.hasShadow').each(function() {
+    //   // addShadow(this, b); //傳入滑鼠位置
+    // });
+    $('.hasDropShadow').each(function() {
+      addDropShadow(this, b); //傳入滑鼠位置
+    });
+    $('.hasBlink').each(function() {
+      // z = $(this).attr('data-z');
+      addBlink(this, b); //傳入滑鼠位置
+    });
+    $('.modal-3d').each(function() {
+      add3d(this, b); //傳入滑鼠位置
+    });
+  });
+})
+
+function add3d(element, b) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  // 物件在頁面上的位置
+  var o_x = $(element).offset().left + $(element).width() / 2;
+  var o_y = $(element).offset().top + $(element).height() / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
+  s_y = Math.sqrt(Math.abs(w_y / 2)); // 垂直距離拉近一點比較有質感
+  s_b = w_l / 2; // 模糊程度，距離越遠越糊
+  if (w_x < 0 ){
+    s_x = - s_x;
+  }
+  if (w_y < 0 ){
+    s_y = - s_y;
+  }
+  $(element).css({
+    'transform': 'rotateY(' + s_x + 'deg) rotateX(' + (-s_y) + 'deg)',
+    'box-shadow': (-s_x*2) + 'px ' + (-s_y*2) + 'px ' + s_b + 'px rgba(0,0,0, .5)'
+  })
+}
+function addDropShadow(element, b) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  // 物件在頁面上的位置
+  var o_x = $(element).offset().left + $(element).width() / 2;
+  var o_y = $(element).offset().top + $(element).height() / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
+  s_y = Math.sqrt(Math.abs(w_y / 2)); // 垂直距離拉近一點比較有質感
+  s_b = w_l / 6; // 模糊程度，距離越遠越糊
+  if (w_x < 0 ){
+    s_x = - s_x;
+  }
+  if (w_y < 0 ){
+    s_y = - s_y;
+  }
+  dropShadow = 'drop-shadow(' + (-s_x/2) + 'px ' + (-s_y/2) + 'px 10px rgba(0,0,0, .5))';
+  boxShadow = (-s_x/2) + 'px ' + (-s_y/2) + 'px 1px 0 rgba(0,0,0, .13)';
+  transform = 'translateX(' + s_x/4 + 'px) translateY(' + (s_y/4) + 'px)';
+  // console.log(boxShadow);
+  $(element).css({
+    'box-shadow': boxShadow,
+    'transform': transform
+  })
+}
+function addBlink(element, b, z) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  // 物件在頁面上的位置
+  var o_x = $(element).offset().left + $(element).width() / 2;
+  var o_y = $(element).offset().top + $(element).height() / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
+  s_y = Math.sqrt(Math.abs(w_y)); // 垂直距離拉近一點比較有質感
+  s_b = w_l / 6; // 模糊程度，距離越遠越糊
+  if (w_x < 0 ){
+    s_x = - s_x;
+  }
+  if (w_y < 0 ){
+    s_y = - s_y;
+  }
+
+  //gradient = 'linear-gradient(' + (-s_y + 180) + 'deg, transparent ' + (0 - s_y*4) + '%, rgba(255,255,255, .6) ' + (10 - s_y*4) + '%, transparent ' + (40 - s_y*4) + '%)';
+  gradient = 'radial-gradient(circle at '+ (50 - s_x*2) + '% ' + (50 - s_y*2) +'% , rgba(255,255,255, .6) 0, transparent 45%)';
+  console.log(gradient)
+  transform = 'translateX(' + s_x + 'px) translateY(' + s_y + 'px) translateZ(' + z + 'px)';
+  $(element).css({
+    // '-webkit-filter': dropShadow,
+    'background-image': gradient
+    // 'transform': transform
+  })
+}
+</script>
+</html>
