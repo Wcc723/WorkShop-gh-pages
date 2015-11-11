@@ -260,7 +260,7 @@ function add3d(element, b) {
     s_y = - s_y;
   }
   $(element).css({
-    'transform': 'rotateY(' + s_x + 'deg) rotateX(' + (-s_y) + 'deg)',
+    'transform': 'translateX(' + (-s_x*4) + 'px) translateY(' + (-s_y*4) + 'px) rotateY(' + s_x/2 + 'deg) rotateX(' + (-s_y)/2 + 'deg)',
     'box-shadow': (-s_x*2) + 'px ' + (-s_y*2) + 'px ' + s_b + 'px rgba(0,0,0, .5)'
   })
 }
