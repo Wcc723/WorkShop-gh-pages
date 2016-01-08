@@ -1,3 +1,0 @@
-# FrontendWorkShop
-
-## angular validation
