@@ -1,0 +1,73 @@
+---
+title: Dynamic Shadow
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<style>
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  background: #ecf0f1;
+  font-size: 20px;
+}
+.wrap {
+  height: 100%;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+</style>
+
+<div class="wrap">
+  <div>
+    <p class="hasShadow">參考連結 <a href="http://codepen.io/bja1011/pen/NqWWgR">http://codepen.io/bja1011/pen/NqWWgR</a></p>
+    <p class="hasShadow"> Dynamic shadow concept</p>
+  </div>
+</div>
+
+</body>
+<script>
+$(document).ready(function() {
+
+  $(document).mousemove(function(b) {
+    $('.hasShadow').each(function() {
+      addShadow(this, b); //傳入滑鼠位置
+    });
+  });
+})
+
+function addShadow(element, b) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  // 物件在頁面上的位置
+  var o_x = $(element).offset().left + $(element).width() / 2;
+  var o_y = $(element).offset().top + $(element).height() / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_l = Math.sqrt((w_x * w_x) + (w_y * w_y));
+
+  s_x = -w_x; // 陰影x距離
+  s_y = -w_y / 4; // 垂直距離拉近一點比較有質感
+
+  s_b = w_l / 4; // 模糊程度，距離越遠越糊
+
+  $(element).css('text-shadow', s_x + 'px ' + s_y + 'px ' + s_b + 'px #000');
+}
+</script>

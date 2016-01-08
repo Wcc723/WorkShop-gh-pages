@@ -1,0 +1,105 @@
+---
+title: Dynamic Gundam
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet" href="../stylesheets/secret.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<style>
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  background: #ecf0f1;
+  font-size: 20px;
+  overflow: hidden;
+}
+.wrap {
+  height: 100%;
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.perspective-3d {
+  transform-style: preserve-3d;
+  perspective: 1500px;
+}
+.bg-cosmos {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  margin-left: -50%;
+}
+.gundam {
+  position: absolute;
+  left: 40%;
+  bottom: 10%;
+  max-width: 50%;
+}
+</style>
+
+  <img src="Cosmos07.jpg" class="bg-cosmos pos-3d" data-layer="1" alt="">
+  <img src="gp03d.png" class="gundam pos-3d" data-layer="7" alt="">
+
+<script>
+$(document).ready(function() {
+  $(document).mousemove(function(b) {
+    $('.hasDropShadow').each(function() {
+      addDropShadow(this, b); //傳入滑鼠位置
+    });
+    $('.pos-3d').each(function() {
+      add3d(this, b); //傳入滑鼠位置
+    });
+  });
+})
+
+function add3d(element, b) {
+  // 滑鼠在頁面上的位置
+  var m_x = b.pageX;
+  var m_y = b.pageY;
+
+  var w_w = window.innerWidth, //window width
+  w_h = window.innerHeight,
+  o_w = $(element).width(),
+  distance = (($(element).width() - w_w) / 2),
+  layer = Number($(element).attr('data-layer'));
+
+  // 物件在頁面上的位置
+  var o_x = w_w / 2;
+  var o_y = w_h / 2;
+
+  // 兩者的距離差
+  w_x = m_x - o_x;
+  w_y = m_y - o_y;
+
+  // 距離相乘後開平方
+  w_wSqrt = Math.sqrt(w_w / 2)
+  d = distance / w_wSqrt / layer
+  //
+  s_x = Math.sqrt(Math.abs(w_x)); // 陰影x距離
+  if (w_x < 0 ){
+    s_x = - s_x;
+  }
+  d_x = s_x * d;
+  console.log(s_x, o_x, d, layer)
+  $(element).css({
+    'transform': 'translateX(' + (d_x) + 'px)',
+    'margin-left': '-' + (o_w / 2) + 'px'
+  })
+}
+// function (element, b) {
+
+// }
+</script>

@@ -1,0 +1,50 @@
+---
+title: CSS Blend Mode
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<link rel="stylesheet" href="../stylesheets/secret.css">
+<script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
+<script src="../cssBlendMode/all.js"></script>
+
+<style>
+  .demo-img {
+    width: 600px;
+    height: 600px;
+    max-width: 100%;
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+</style>
+
+<div class="container mtl"  ng-controller="appCtrl as app">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Blend Mode</label>
+        <select
+              class="form-control"
+              ng-model="app.blend"
+              ng-change="app.choseProp()"
+              ng-options="item for item in app.blendProp.props">
+          <option value=""> --請選擇-- </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Background Color</label>
+        <input type="color" class="form-control" ng-model="app.color" ng-change="app.choseProp()">
+      </div>
+      <div class="form-group">
+        <label>Background URL</label>
+        <input type="text" class="form-control" ng-model="app.url" ng-init="app.url = 'pepper.jpg'" ng-change="app.choseProp()">
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="demo-img"
+      ng-style='app.style'
+      style="background-image: url({{app.url}}); background-size: cover;
+      "></div>
+    </div>
+  </div>
+</div>

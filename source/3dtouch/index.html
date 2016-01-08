@@ -1,0 +1,109 @@
+---
+title: 3D_touch
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<style>
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  background: #ecf0f1;
+  font-size: 20px;
+}
+.wrap {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+.touchMe {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: #000;
+}
+</style>
+
+
+<div class="wrap" style="background-image: url(https://dbjdsnch130xu.cloudfront.net/uploads/recipe/cover/131006/large_14c87d3ee3b5168c.jpg)">
+  <div class="touchMe" id="forceMe">
+  </div>
+  <div id="forceValue"></div>
+</div>
+
+<script>
+var element = document.getElementById('forceMe');
+var forceValueOutput = document.getElementById('forceValue');
+var background = document.getElementById('background');
+var touch = null;
+
+addForceTouchToElement(element);
+
+function onTouchStart(e) {
+  e.preventDefault();
+  checkForce(e);
+}
+
+function onTouchMove(e) {
+  e.preventDefault();
+  checkForce(e);
+}
+
+function onTouchEnd(e) {
+  e.preventDefault();
+  touch = null;
+}
+
+function checkForce(e) {
+  touch = e.touches[0];
+  setTimeout(refreshForceValue.bind(touch), 10);
+}
+
+function checkMacForce(e) {
+  // max value for trackpad is 3.0 compare to 1.0 on iOS
+  renderElement(e.webkitForce/3);
+}
+
+function refreshForceValue() {
+  var touchEvent = this;
+  var forceValue = 0;
+  if(touchEvent) {
+    forceValue = touchEvent.force || 0;
+    setTimeout(refreshForceValue.bind(touch), 10);
+  }else{
+    forceValue = 0;
+  }
+
+  renderElement(forceValue);
+}
+
+function renderElement(forceValue) {
+  // element.style.webkitTransform = 'scale(' + (1 + forceValue * 1.5) + ')';
+  element.style.clipPath = 'circle('+(1 + forceValue * 1.5)+' at center)'
+  // background.style.webkitFilter = 'blur(' + forceValue * 30 + 'px)';
+  forceValueOutput.innerHTML = 'Force: ' + forceValue.toFixed(4);
+}
+
+function addForceTouchToElement(elem) {
+  elem.addEventListener('touchstart', onTouchStart, false);
+  elem.addEventListener('touchmove', onTouchMove, false);
+  elem.addEventListener('touchend', onTouchEnd, false);
+  elem.addEventListener('webkitmouseforcewillbegin', checkMacForce, false);
+  elem.addEventListener('webkitmouseforcechanged', checkMacForce, false);
+}
+</script>

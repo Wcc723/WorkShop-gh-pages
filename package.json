@@ -1,0 +1,35 @@
+{
+  "name": "work-shop",
+  "version": "1.0.0",
+  "description": "## angular validation",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-gh-pages": "^0.5.4",
+    "gulp": "^3.9.0",
+    "gulp-webserver": "^0.9.1"
+  },
+  "devDependencies": {
+    "consolidate": "^0.13.1",
+    "ejs": "^2.3.4",
+    "gulp": "^3.9.0",
+    "gulp-front-matter": "^1.3.0",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-layout": "0.0.3",
+    "jade": "^1.11.0",
+    "lodash": "^3.10.1",
+    "mocha": "^2.3.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wcc723/WorkShop-gh-pages.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wcc723/WorkShop-gh-pages/issues"
+  },
+  "homepage": "https://github.com/Wcc723/WorkShop-gh-pages#readme"
+}
