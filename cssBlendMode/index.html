@@ -16,8 +16,18 @@
     width: 600px;
     height: 600px;
     max-width: 100%;
-    -webkit-background-size: cover;
     background-size: cover;
+  }
+  .demo-text {
+    position: relative;
+    margin: 0 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 7rem;
+    font-weight: 700;
+    letter-spacing: -0.75rem;
+    mix-blend-mode: multiply;
   }
 </style>
 
@@ -25,7 +35,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <label>Blend Mode</label>
+        <label>Background Blend Mode</label>
         <select
               class="form-control"
               ng-model="app.blend"
@@ -39,6 +49,23 @@
         <input type="color" class="form-control" ng-model="app.color" ng-change="app.choseProp()">
       </div>
       <div class="form-group">
+        <label>Text</label>
+        <input type="text" class="form-control" ng-model="app.text">
+      </div>
+      <div class="form-group">
+        <label>Text Color</label>
+        <input type="color" class="form-control" ng-model="app.textColor">
+      </div>
+      <div class="form-group">
+        <label>Text Mix Blend Mode</label>
+        <select
+              class="form-control"
+              ng-model="app.textblendMode"
+              ng-options="item for item in app.mixBlendMode.props">
+          <option value=""> --請選擇-- </option>
+        </select>
+      </div>
+      <div class="form-group">
         <label>Background URL</label>
         <input type="text" class="form-control" ng-model="app.url" ng-init="app.url = 'pepper.jpg'" ng-change="app.choseProp()">
       </div>
@@ -47,7 +74,9 @@
       <div class="demo-img"
       ng-style='app.style'
       style="background-image: url({{app.url}}); background-size: cover;
-      "></div>
+      ">
+        <div class="demo-text" ng-bind="app.text" style="color: {{app.textColor}}; mix-blend-mode: {{app.textblendMode}};"></div>
+      </div>
     </div>
   </div>
 </div>

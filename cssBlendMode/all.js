@@ -1,16 +1,19 @@
 app = angular.module('app', []);
 
 app.controller('appCtrl', [function(){
-  var scope = this;
+  var vm = this;
 
-  scope.blendProp = blendProp;
-  scope.color = '#2391AE';
+  vm.blendProp = blendProp;
+  vm.mixBlendMode = mixBlendMode;
+  vm.color = '#2391AE';
+  vm.text = 'Chili peppers';
+  vm.textColor = '#FF0000';
 
-  scope.choseProp = function(items){
-    styleJson = '{"'+ scope.blendProp.propName + '" : "' + scope.blend+
-                 '","background-color":"' + scope.color +'"}' ;
-    scope.style = JSON.parse(styleJson);
-    console.log(scope.style);
+  vm.choseProp = function(items){
+    styleJson = '{"'+ vm.blendProp.propName + '" : "' + vm.blend+
+                 '","background-color":"' + vm.color +'"}' ;
+    vm.style = JSON.parse(styleJson);
+    console.log(vm.style);
   };
 }]);
 
@@ -35,3 +38,26 @@ var blendProp =
     'color',
     'luminosity'
   ]};
+
+var mixBlendMode =
+  {
+    propName: 'background-blend-mode',
+    props: [
+    'normal' ,
+    'multiply' ,
+    'screen' ,
+    'overlay' ,
+    'darken',
+    'lighten' ,
+    'color-dodge' ,
+    'color-burn' ,
+    'hard-light' ,
+    'soft-light',
+    'difference',
+    'exclusion',
+    'hue',
+    'saturation',
+    'color',
+    'luminosity'
+  ]
+  }
