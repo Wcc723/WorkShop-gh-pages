@@ -1,0 +1,43 @@
+.wrap {
+  background-color: #89ACB5; }
+
+.card {
+  background-color: #FFF;
+  border-radius: 10px;
+  color: #5F6E88;
+  box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.15); }
+
+.card-body {
+  margin: 40px; }
+  .card-body + .card-body {
+    margin-top: 0; }
+
+.card-footer {
+  margin: 20px 40px 40px 40px; }
+
+.btn-glow-secondary, .btn-glow-primary, .btn-glow-accent {
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: #fff;
+  letter-spacing: 1px;
+  transition: all .2s ease; }
+  .btn-glow-secondary:hover, .btn-glow-primary:hover, .btn-glow-accent:hover, .btn-glow-secondary:focus, .btn-glow-primary:focus, .btn-glow-accent:focus, .btn-glow-secondary:active, .btn-glow-primary:active, .btn-glow-accent:active {
+    color: white; }
+
+.btn-glow-secondary {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #B3B8BB;
+  box-shadow: 0 15px 40px 0 rgba(179, 184, 187, 0.5); }
+  .btn-glow-secondary:hover, .btn-glow-secondary:focus, .btn-glow-secondary:active {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #c0c5c7; }
+
+.btn-glow-primary {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #009AFF;
+  box-shadow: 0 15px 40px 0 rgba(0, 154, 255, 0.5); }
+  .btn-glow-primary:hover, .btn-glow-primary:focus, .btn-glow-primary:active {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #1aa4ff; }
+
+.btn-glow-accent {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #00d000;
+  box-shadow: 0 15px 40px 0 rgba(0, 208, 0, 0.5); }
+  .btn-glow-accent:hover, .btn-glow-accent:focus, .btn-glow-accent:active {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(250, 198, 100, 0.25) 100%), #00ea00; }
