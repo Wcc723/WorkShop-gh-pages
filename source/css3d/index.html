@@ -1,0 +1,53 @@
+---
+title: CSS 3D
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<link rel="stylesheet" href="../stylesheets/secret.css">
+<script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
+<link rel="stylesheet" href="all.css" media="screen" title="no title" charset="utf-8">
+<script src="../css3d/all.js"></script>
+
+<div ng-controller="cssCtrl as css" class="wrap border" style="perspective:{{ css.perspective }}px">
+  <div class="box" style="transform: rotateX({{css.rotateX}}deg) rotateY({{css.rotateY}}deg) rotateZ({{css.rotateZ}}deg);">
+    <div class="cube cube-front">
+      前
+    </div>
+    <div class="cube cube-back">
+      後
+    </div>
+    <div class="cube cube-top">
+      上
+    </div>
+    <div class="cube cube-bottom">
+      下
+    </div>
+    <div class="cube cube-left">
+      左
+    </div>
+    <div class="cube cube-right">
+      右
+    </div>
+  </div>
+  <!--  -->
+  <div class="content mtxl">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Perspective <strong ng-bind="css.perspective"></strong></label>
+      <input type="range" min="0" max="1500" ng-init="css.perspective = 750" ng-model="css.perspective">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">RotateX <strong ng-bind="css.rotateX"></strong></label>
+      <input type="range" min="0" max="360" ng-init="css.rotateX = 0" ng-model="css.rotateX">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">RotateY <strong ng-bind="css.rotateY"></strong></label>
+      <input type="range" min="0" max="360" ng-init="css.rotateY = 30" ng-model="css.rotateY">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">RotateZ <strong ng-bind="css.rotateZ"></strong></label>
+      <input type="range" min="0" max="360" ng-init="css.rotateZ = 0" ng-model="css.rotateZ">
+    </div>
+  </div>
+
+</div>
