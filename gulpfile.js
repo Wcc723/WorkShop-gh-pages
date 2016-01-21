@@ -3,6 +3,7 @@ var ghPages = require('gulp-gh-pages');
 var webserver = require('gulp-webserver');
 var layout = require('gulp-layout');
 var frontMatter = require('gulp-front-matter');
+var sass = require('gulp-sass');
 
 gulp.task('webserver', function() {
   gulp.src('./public')
@@ -23,6 +24,12 @@ gulp.task('gulp-layout', function() {
     .pipe(gulp.dest('./public'));
 });
 
+gulp.task('sass', function () {
+  gulp.src('./source/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./public'));
+});
+
 gulp.task('copy', function(){
   gulp.src(['./source/**/*.css',
     './source/**/*.png',
@@ -34,6 +41,7 @@ gulp.task('copy', function(){
 
 gulp.task('watch', function () {
   gulp.watch( './source/**/*.html', { interval: 500 }, ['gulp-layout']);
+  gulp.watch( './source/**/*.scss', { interval: 500 }, ['sass']);
   gulp.watch( ['./source/**/*.css',
     './source/**/*.png',
     './source/**/*.jpg',
@@ -47,4 +55,4 @@ gulp.task('deploy', function() {
 });
 
 
-gulp.task('default', ['webserver','gulp-layout', 'copy', 'watch']);
+gulp.task('default', ['webserver','gulp-layout', 'copy', 'sass', 'watch']);

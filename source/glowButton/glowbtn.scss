@@ -1,0 +1,66 @@
+
+$brand-primary: #009AFF;
+$brand-accent: #00d000;
+$brand-secondary: #B3B8BB;
+$brand-glow: rgba(250,198,100,.25);
+$border-radius: 10px;
+$background-color: #89ACB5;
+
+
+.wrap {
+  background-color: $background-color;
+}
+
+// card
+.card {
+  background-color: #FFF;
+  border-radius: $border-radius;
+  color: #5F6E88;
+  box-shadow: 0 20px 50px 0 rgba(black, 0.15);
+}
+.card-body {
+  margin: 40px;
+  & + .card-body {
+    margin-top: 0;
+  }
+}
+.card-footer {
+  margin: 20px 40px 40px 40px;
+}
+
+
+// button
+
+@mixin btn-glow($color) {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, $brand-glow 100%), $color;
+  box-shadow: 0 15px 40px 0 rgba($color, 0.5);
+  &:hover, &:focus, &:active {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, $brand-glow 100%), lighten($color, 5%);
+  }
+}
+
+%btn-glow {
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: #fff;
+  letter-spacing: 1px;
+  transition: all .2s ease;
+  &:hover, &:focus, &:active {
+    color: white;
+  }
+}
+
+.btn-glow-secondary {
+  @extend %btn-glow;
+  @include btn-glow($color: $brand-secondary);
+}
+
+.btn-glow-primary {
+  @extend %btn-glow;
+  @include btn-glow($color: $brand-primary);
+}
+
+.btn-glow-accent {
+  @extend %btn-glow;
+  @include btn-glow($color: $brand-accent);
+}
