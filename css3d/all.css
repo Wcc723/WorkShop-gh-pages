@@ -3,29 +3,28 @@ body, .wrap, .cube {
   align-items: center;
   justify-content: center; }
 
-body, html {
-  height: 100%;
-  width: 100%; }
-
 body {
-  min-height: 100%;
   flex-direction: column; }
 
 .border {
   border: 1px solid #ccc; }
 
 .wrap {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 100%;
   padding: 20px;
   perspective: 600px;
   flex-direction: column; }
 
 .box {
   position: relative;
+  margin: 0 auto;
   height: 200px;
   width: 200px;
+  border: 1px solid red;
   transform-style: preserve-3d;
-  transition: transform 0.5s;
-  border: 1px solid red; }
+  transition: transform 0.5s; }
   .box:after, .box:before {
     content: "";
     position: absolute;
@@ -38,8 +37,9 @@ body {
 
 .content {
   width: 400px;
-  max-width: 100%;
-  margin-top: 60px; }
+  max-width: 100%; }
+  .content + .content {
+    margin-top: 60px; }
 
 .cube {
   position: absolute;
