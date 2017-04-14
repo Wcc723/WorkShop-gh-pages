@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Glow Button</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+<script src="../vendor/fabric.min.js"></script>
+<link rel="stylesheet" href="../stylesheets/secret.css">
+<style>
+.wrapper {
+  margin-top: 30px;
+}
+.inline-block {
+  display: inline-block;
+}
+.canvas-wrap {
+  border: 1px solid #ccc;
+}
+</style>
+
+<div class="wrapper text-center">
+  <div class="inline-block canvas-wrap">
+    <canvas id="c" width="600" height="300"></canvas>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+  // reference canvas element (with id="c")
+var canvasEl = document.getElementById('c');
+
+// get 2d context to draw on (the "bitmap" mentioned earlier)
+var ctx = canvasEl.getContext('2d');
+
+// set fill color of context
+ctx.fillStyle = 'red';
+
+// create rectangle at a 100,100 point, with 20x20 dimensions
+ctx.fillRect(100, 100, 20, 20);
+  // create a wrapper around native canvas element (with id="c")
+var canvas = new fabric.Canvas('c');
+
+// create a rectangle object
+var rect = new fabric.Rect({
+  left: 100,
+  top: 100,
+  fill: 'red',
+  width: 20,
+  height: 20
+});
+
+// "add" rectangle onto canvas
+canvas.add(rect);
+</script>
+
+  <nav style="
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 99999999;
+	background-color: rgba(255, 255, 255, .8);
+	padding: 8px 15px;
+	font-size: 14px;
+  ">
+  	<div>
+  		<a href="../">FrontendWorkshop</a>
+  		<span style="color: #ccc"> | </span>
+  		<span style="color: #999">Glow Button</span>
+  	</div>
+  </nav>
+</body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '556473851118881',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43235390-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</html>

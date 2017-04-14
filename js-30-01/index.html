@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>鍵盤打鼓 - JavaScript 30</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>鍵盤打鼓</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-image: url('https://images.unsplash.com/reserve/Hxev8VTsTuOJ27thHQdK_DSC_0068.JPG?dpr=1&auto=format&fit=crop&w=1500&h=1004&q=80&cs=tinysrgb&crop=&bg=');
+      background-size: cover;
+    }
+    .container {
+      margin: 0 auto;
+      display: grid;
+      max-width: 960px;
+      height: 100vh;
+
+      /* CSS Grid */
+      grid-auto-columns: 9fr; /* 分為 9 等分 */
+      grid-auto-flow: column; /* column 的排列方式 */
+      grid-gap: 10px; /* 空間的間隔 */
+      align-content: center; /* vertical center */
+    }
+    .col-1 {
+      grid-column: span 1; /* 每個內容佔 1 等分 */
+      min-height: 50px;
+      background-color: rgba(0, 0, 0, .55);
+      border: 3px solid rgba(0, 0, 0, .75);
+      border-radius: 3px;
+      padding: 15px 0;
+    }
+    .flex {
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+    }
+    kbd {
+      color: orange;
+      font-size: 2.5rem;
+    }
+    .sound {
+      color: white;
+    }
+    
+    .key {
+      transform: scale(1);
+      border-color: #ffc600;
+      box-shadow: 0 0 0rem #ffc600;
+      transition: all .07s ease;
+    }
+    .playing {
+      transform: scale(1.1);
+      border-color: #ffc600;
+      box-shadow: 0 0 1rem #ffc600;
+    }
+  </style>
+  <div class="container">
+    <div data-key="65" class="key flex col-1">
+      <!-- kbd: HTML 鍵盤符號 -->
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key flex col-1">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key flex col-1">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key flex col-1">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key flex col-1">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key flex col-1">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key flex col-1">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key flex col-1">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key flex col-1">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+  <script>
+    const removeTransition = (e)=> { // 移除動畫效果的 Function
+      if (e.propertyName === 'transform'){ // 避免觸發次數過多，先隱藏部分
+        console.log('觸發移除的 DOM', e);
+        e.target.classList.remove('playing'); // 移除 className
+      }
+    }
+
+    const playSound = (e)=> {
+      console.log('按下鍵盤的按鈕', e);
+      let audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); 
+      // ES6 的字串寫法，直接取得鍵盤按下的 keyCode，並且選取指定的 audio 標籤
+      let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      // 同樣寫法，抓取指定的 Div
+
+      if (!audio) return; // 如果沒有找到標籤，事件停止
+
+      console.log(`目前的 key 是`, key, key.classList);
+      console.log(`目前的 audio 是`, audio, audio.currentTime);
+
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
+    }
+    
+    const keys = document.querySelectorAll('.key'); // 取得 .key 的陣列
+    keys.forEach((key)=> { // 所有的 Key 加入 transitionend 的偵聽
+      key.addEventListener('transitionend', removeTransition); // transition 結束時，移除 Class
+    });
+    
+    window.addEventListener('keydown', playSound);
+  </script>
+</body>
+</html>
+  <nav style="
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 99999999;
+	background-color: rgba(255, 255, 255, .8);
+	padding: 8px 15px;
+	font-size: 14px;
+  ">
+  	<div>
+  		<a href="../">FrontendWorkshop</a>
+  		<span style="color: #ccc"> | </span>
+  		<span style="color: #999">鍵盤打鼓 - JavaScript 30</span>
+  	</div>
+  </nav>
+</body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '556473851118881',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43235390-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</html>
