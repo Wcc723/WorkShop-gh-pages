@@ -7,152 +7,144 @@
 </head>
 <body>
   
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>鍵盤打鼓</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body, html {
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-image: url('https://images.unsplash.com/reserve/Hxev8VTsTuOJ27thHQdK_DSC_0068.JPG?dpr=1&auto=format&fit=crop&w=1500&h=1004&q=80&cs=tinysrgb&crop=&bg=');
-      background-size: cover;
-    }
-    .container {
-      margin: 0 auto;
-      display: grid;
-      max-width: 960px;
-      height: 100vh;
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-image: url('https://images.unsplash.com/reserve/Hxev8VTsTuOJ27thHQdK_DSC_0068.JPG?dpr=1&auto=format&fit=crop&w=1500&h=1004&q=80&cs=tinysrgb&crop=&bg=');
+    background-size: cover;
+  }
+  .container {
+    margin: 0 auto;
+    display: grid;
+    max-width: 960px;
+    height: 100vh;
 
-      /* CSS Grid */
-      grid-auto-columns: 9fr; /* 分為 9 等分 */
-      grid-auto-flow: column; /* column 的排列方式 */
-      grid-gap: 10px; /* 空間的間隔 */
-      align-content: center; /* vertical center */
-    }
-    .col-1 {
-      grid-column: span 1; /* 每個內容佔 1 等分 */
-      min-height: 50px;
-      background-color: rgba(0, 0, 0, .55);
-      border: 3px solid rgba(0, 0, 0, .75);
-      border-radius: 3px;
-      padding: 15px 0;
-    }
-    .flex {
-      display: flex;
-      text-align: center;
-      flex-direction: column;
-    }
-    kbd {
-      color: orange;
-      font-size: 2.5rem;
-    }
-    .sound {
-      color: white;
-    }
-    
-    .key {
-      transform: scale(1);
-      border-color: #ffc600;
-      box-shadow: 0 0 0rem #ffc600;
-      transition: all .07s ease;
-    }
-    .playing {
-      transform: scale(1.1);
-      border-color: #ffc600;
-      box-shadow: 0 0 1rem #ffc600;
-    }
-  </style>
-  <div class="container">
-    <div data-key="65" class="key flex col-1">
-      <!-- kbd: HTML 鍵盤符號 -->
-      <kbd>A</kbd>
-      <span class="sound">clap</span>
-    </div>
-    <div data-key="83" class="key flex col-1">
-      <kbd>S</kbd>
-      <span class="sound">hihat</span>
-    </div>
-    <div data-key="68" class="key flex col-1">
-      <kbd>D</kbd>
-      <span class="sound">kick</span>
-    </div>
-    <div data-key="70" class="key flex col-1">
-      <kbd>F</kbd>
-      <span class="sound">openhat</span>
-    </div>
-    <div data-key="71" class="key flex col-1">
-      <kbd>G</kbd>
-      <span class="sound">boom</span>
-    </div>
-    <div data-key="72" class="key flex col-1">
-      <kbd>H</kbd>
-      <span class="sound">ride</span>
-    </div>
-    <div data-key="74" class="key flex col-1">
-      <kbd>J</kbd>
-      <span class="sound">snare</span>
-    </div>
-    <div data-key="75" class="key flex col-1">
-      <kbd>K</kbd>
-      <span class="sound">tom</span>
-    </div>
-    <div data-key="76" class="key flex col-1">
-      <kbd>L</kbd>
-      <span class="sound">tink</span>
-    </div>
+    /* CSS Grid */
+    grid-auto-columns: 9fr; /* 分為 9 等分 */
+    grid-auto-flow: column; /* column 的排列方式 */
+    grid-gap: 10px; /* 空間的間隔 */
+    align-content: center; /* vertical center */
+  }
+  .col-1 {
+    grid-column: span 1; /* 每個內容佔 1 等分 */
+    min-height: 50px;
+    background-color: rgba(0, 0, 0, .55);
+    border: 3px solid rgba(0, 0, 0, .75);
+    border-radius: 3px;
+    padding: 15px 0;
+  }
+  .flex {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+  }
+  kbd {
+    color: orange;
+    font-size: 2.5rem;
+  }
+  .sound {
+    color: white;
+  }
+  
+  .key {
+    transform: scale(1);
+    border-color: #ffc600;
+    box-shadow: 0 0 0rem #ffc600;
+    transition: all .07s ease;
+  }
+  .playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+  }
+</style>
+<div class="container">
+  <div data-key="65" class="key flex col-1">
+    <!-- kbd: HTML 鍵盤符號 -->
+    <kbd>A</kbd>
+    <span class="sound">clap</span>
   </div>
-  <audio data-key="65" src="sounds/clap.wav"></audio>
-  <audio data-key="83" src="sounds/hihat.wav"></audio>
-  <audio data-key="68" src="sounds/kick.wav"></audio>
-  <audio data-key="70" src="sounds/openhat.wav"></audio>
-  <audio data-key="71" src="sounds/boom.wav"></audio>
-  <audio data-key="72" src="sounds/ride.wav"></audio>
-  <audio data-key="74" src="sounds/snare.wav"></audio>
-  <audio data-key="75" src="sounds/tom.wav"></audio>
-  <audio data-key="76" src="sounds/tink.wav"></audio>
-  <script>
-    const removeTransition = (e)=> { // 移除動畫效果的 Function
-      if (e.propertyName === 'transform'){ // 避免觸發次數過多，先隱藏部分
-        console.log('觸發移除的 DOM', e);
-        e.target.classList.remove('playing'); // 移除 className
-      }
+  <div data-key="83" class="key flex col-1">
+    <kbd>S</kbd>
+    <span class="sound">hihat</span>
+  </div>
+  <div data-key="68" class="key flex col-1">
+    <kbd>D</kbd>
+    <span class="sound">kick</span>
+  </div>
+  <div data-key="70" class="key flex col-1">
+    <kbd>F</kbd>
+    <span class="sound">openhat</span>
+  </div>
+  <div data-key="71" class="key flex col-1">
+    <kbd>G</kbd>
+    <span class="sound">boom</span>
+  </div>
+  <div data-key="72" class="key flex col-1">
+    <kbd>H</kbd>
+    <span class="sound">ride</span>
+  </div>
+  <div data-key="74" class="key flex col-1">
+    <kbd>J</kbd>
+    <span class="sound">snare</span>
+  </div>
+  <div data-key="75" class="key flex col-1">
+    <kbd>K</kbd>
+    <span class="sound">tom</span>
+  </div>
+  <div data-key="76" class="key flex col-1">
+    <kbd>L</kbd>
+    <span class="sound">tink</span>
+  </div>
+</div>
+<audio data-key="65" src="sounds/clap.wav"></audio>
+<audio data-key="83" src="sounds/hihat.wav"></audio>
+<audio data-key="68" src="sounds/kick.wav"></audio>
+<audio data-key="70" src="sounds/openhat.wav"></audio>
+<audio data-key="71" src="sounds/boom.wav"></audio>
+<audio data-key="72" src="sounds/ride.wav"></audio>
+<audio data-key="74" src="sounds/snare.wav"></audio>
+<audio data-key="75" src="sounds/tom.wav"></audio>
+<audio data-key="76" src="sounds/tink.wav"></audio>
+<script>
+  const removeTransition = (e)=> { // 移除動畫效果的 Function
+    if (e.propertyName === 'transform'){ // 避免觸發次數過多，先隱藏部分
+      console.log('觸發移除的 DOM', e);
+      e.target.classList.remove('playing'); // 移除 className
     }
+  }
 
-    const playSound = (e)=> {
-      console.log('按下鍵盤的按鈕', e);
-      let audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); 
-      // ES6 的字串寫法，直接取得鍵盤按下的 keyCode，並且選取指定的 audio 標籤
-      let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-      // 同樣寫法，抓取指定的 Div
+  const playSound = (e)=> {
+    console.log('按下鍵盤的按鈕', e);
+    let audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); 
+    // ES6 的字串寫法，直接取得鍵盤按下的 keyCode，並且選取指定的 audio 標籤
+    let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    // 同樣寫法，抓取指定的 Div
 
-      if (!audio) return; // 如果沒有找到標籤，事件停止
+    if (!audio) return; // 如果沒有找到標籤，事件停止
 
-      console.log(`目前的 key 是`, key, key.classList);
-      console.log(`目前的 audio 是`, audio, audio.currentTime);
+    console.log(`目前的 key 是`, key, key.classList);
+    console.log(`目前的 audio 是`, audio, audio.currentTime);
 
-      key.classList.add('playing');
-      audio.currentTime = 0;
-      audio.play();
-    }
-    
-    const keys = document.querySelectorAll('.key'); // 取得 .key 的陣列
-    keys.forEach((key)=> { // 所有的 Key 加入 transitionend 的偵聽
-      key.addEventListener('transitionend', removeTransition); // transition 結束時，移除 Class
-    });
-    
-    window.addEventListener('keydown', playSound);
-  </script>
-</body>
-</html>
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+  
+  const keys = document.querySelectorAll('.key'); // 取得 .key 的陣列
+  keys.forEach((key)=> { // 所有的 Key 加入 transitionend 的偵聽
+    key.addEventListener('transitionend', removeTransition); // transition 結束時，移除 Class
+  });
+  
+  window.addEventListener('keydown', playSound);
+</script>
+
   <nav style="
   	position: fixed;
   	bottom: 0;
