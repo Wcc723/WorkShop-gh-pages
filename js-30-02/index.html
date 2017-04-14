@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>時鐘 - JavaScript 30</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+<style>
+  *, *:before {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-image: url("https://images.unsplash.com/photo-1471201187657-6406da15e43b?dpr=1&auto=format&fit=crop&w=1500&h=1500&q=80&cs=tinysrgb&crop=&bg=");
+    background-size: cover;
+  }
+  .container {
+    margin: 0 auto;
+    display: flex;
+    max-width: 960px;
+    height: 100vh;
+
+    /* CSS center */
+    align-items: center; /* vertical center */
+    justify-content: center;
+  }
+  .clock-icon {
+    border: 4px solid #ccc;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 3px 3px 3px rgba(0,0,0, 0.16)
+  }
+  .clock-icon:before {
+    content: "";
+    background-image: url("https://images.unsplash.com/photo-1471201187657-6406da15e43b?dpr=1&auto=format&fit=crop&w=1500&h=1500&q=80&cs=tinysrgb&crop=&bg=");
+    background-attachment: fixed;
+    background-size: cover;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: absolute;
+    filter: blur(5px);
+  }
+
+  /* 透過偽元素製作時分秒針 */
+  .clock-minute, .clock-hour, .clock-second {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 100%;
+    transition: all 0.05s;
+    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1); 
+    /* 反彈效果的 time function */
+  }
+  .clock-minute:before, .clock-hour:before, .clock-second:before {
+    position: absolute;
+    content: "";
+  }
+  .clock-hour {
+    width: 7px;
+  }
+  .clock-minute {
+    width: 5px;
+  }
+  .clock-second {
+    width: 3px;
+  }
+  .clock-hour:before {
+    background: #373a3c;
+    height: 80px;
+    width: 7px;
+    top: 90px;
+  }
+  .clock-minute:before {
+    background: #435234;
+    height: 120px;
+    width: 5px;
+    top: 50px;
+  }
+  .clock-second:before {
+    background: #FF5E45;
+    height: 160px;
+    width: 3px;
+    top: 10px;
+  }
+</style>
+<div class="container">
+  <div class="clock-icon m-y-1">
+    <div class="clock-second"></div>
+    <div class="clock-minute"></div>
+    <div class="clock-hour"></div>
+  </div>
+</div>
+
+<script>
+  // 選取時分秒針的 DOM
+  const secondHand = document.querySelector('.clock-second');
+  const minsHand = document.querySelector('.clock-minute');
+  const hourHand = document.querySelector('.clock-hour');
+
+  const setDate = ()=> {
+    // 取得目前時間
+    let now = new Date();
+    console.log('目前時間', now); // 直接在目前 console 顯示時間
+
+    let time = {
+      second: now.getSeconds(),
+      minute: now.getMinutes(),
+      hour: now.getHours()
+    }
+    console.log('整理好的時間格式:', time);
+
+    let secondsDegrees = ((time.second / 60) * 360);
+    let minsDegrees = ((time.minute / 60) * 360);
+    let hourDegrees = ((time.hour / 60) * 360);
+    
+    secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+    minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+    hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    // 將角度寫在 CSS 的的屬性上
+  }
+
+  setInterval(setDate, 1000); // 每一秒鐘更新一次時間
+  setDate();
+</script>
+
+  <nav style="
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 99999999;
+	background-color: rgba(255, 255, 255, .8);
+	padding: 8px 15px;
+	font-size: 14px;
+  ">
+  	<div>
+  		<a href="../">FrontendWorkshop</a>
+  		<span style="color: #ccc"> | </span>
+  		<span style="color: #999">時鐘 - JavaScript 30</span>
+  	</div>
+  </nav>
+</body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '556473851118881',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43235390-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</html>
