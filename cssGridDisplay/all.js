@@ -1,128 +1,193 @@
-app = angular.module('app', []);
-
-app.controller('appCtrl', [function(){
-  var scope = this;
-  
-  scope.wrapProps = wrapProp;
-  scope.inlineProps = inlineProp;
-  scope.flexWrap = {};
-  scope.flexitems = [{
-    style:{
-      "background-color": "orange",
-      "flex-basis":"200px",
-      "flex-shrink": "0",
-      "flex-grow": "0",
-      "padding":"20px"
-    }
-  },{
-    style:{
-      "background-color": "coral",
-      "flex-basis":"200px",
-      "flex-shrink": "1",
-      "flex-grow": "1",
-      "padding":"20px",
-      "height": "200px",
-    }
-  },{
-    style:{
-      "background-color": "deepskyblue",
-      "flex-basis":"400px",
-      "flex-shrink": "5",
-      "flex-grow": "5",
-      "height": "200px",
-      "padding":"20px",
-      "align-self": "center"
-    }
-  }];
-  
-  scope.choseProp = function(items){
-    var tempWrapString = '';
-    angular.forEach(items, function(item, i){
-      comma = ',';
-      if (i == scope.wrapProps.length -1){
-        comma = '';
+const gridHelper = {
+  createBg: function (gridWidth, gridGap, gridNum) {
+    let grids = ''
+    let gray = 'rgba(0, 0, 0, .05)'
+    for (var c = 1; c <= gridNum; c++) {
+      let comma = ''
+      let gap = ''
+      let grid = ''
+      if (c === 1) {
+        grid = `${grid}${comma} ${gray} 0px, ${gray} ${(gridWidth * c)}px`
+        gap = `, transparent ${gridWidth * c}px, transparent ${(gridWidth * c) + gridGap}px`
+      } else if (c === gridNum) {
+        comma = ','
+        grid = `${gray} ${gridWidth * (c - 1) + (gridGap * (c - 1))}px, ${gray} 100px`
+      } else {
+        comma = ','
+        grid = `${gray} ${gridWidth * (c - 1) + (gridGap * (c - 1))}px, ${gray} ${(gridWidth * c + gridGap * (c - 1))}px`
+        gap = `, transparent ${gridWidth * c + (gridGap * (c - 1))}px, transparent ${gridWidth * c + gridGap * (c - 1) + gridGap}px`
       }
-      tempWrapString = tempWrapString + '"'+item.propName+'": "'+item.value+'" '+comma+'';
-    });
-    flexWrapJson = JSON.parse('{'+ tempWrapString+ '}');
-    scope.flexWrap = flexWrapJson;
-  };
-  
-  scope.addNewFlex = function(){
-    scope.flexitems.push({
-    "style":{
-        "background": "orange",
-      }
-    });
-  };
-  scope.removeObject = function(key){
-  	scope.flexitems.splice(key, 1);
+      grids = `${grids} ${comma} ${grid} ${gap}`
+    }
+    return grids
+  },
+  stringGen: (len) => {
+    var text = ''
+    var charset = 'abcdefghijklmnopqrstuvwxyz0123456789'
+    for (var i = 0; i < len; i++) {
+      text += charset.charAt(Math.floor(Math.random() * charset.length))
+    }
+    return text
   }
-}]);
+}
 
+let app = new Vue({
+  el: '#app',
+  data: {
+    layout: {
+      grid: {
+        'grid-auto-columns': 6,
+        'grid-auto-rows': 4,
+        'grid-column-gap': 20,
+        'grid-row-gap': 15,
+        'justify-items': '',
+        'align-items': '',
+        'justify-content': '',
+        'align-content': ''
+      },
+      measure: {}
+    },
+    items: [
+      {
+        id: '123',
+        isSelected: false,
+        style: {
+          'grid-column-start': 2,
+          'grid-column-end': 3,
+          'grid-row-start': 2,
+          'grid-row-end': 3,
+          'background-color': 'rgb(244, 36, 0)',
+          'z-index': 1
+        }
+      }
+    ],
+    currentItem: {
 
+    },
+    defaultItem: {
+      isSelected: false,
+      style: {
+        'grid-column-start': 1,
+        'grid-column-end': 2,
+        'grid-row-start': 1,
+        'grid-row-end': 2,
+        'background-color': 'rgb(0, 0, 0)',
+        'z-index': 1,
+        'justify-self': '',
+        'align-self': ''
+      }
+    },
+    controllerPanel: {
+      isActive: false
+    },
+    grid: {
 
-var wrapProp = [
-  {
-    propName: 'align-items',
-    props: [
-  'flex-start' , 'flex-end' , 'center' , 'baseline' , 'stretch'
-  ]},
-  {
-    propName: 'justify-content',
-    props: [
-  'flex-start' , 'flex-end' , 'center' , 'space-between' , 'space-around', 'stretch'
-  ]},
-  {
-    propName: 'flex-direction',
-    props: [
-  'row','row-reverse','column','column-reverse','initial','inherit'
-  ]},
-  {
-    propName: 'flex-wrap',
-    props: [
-  'nowrap','wrap','wrap-reverse','initial','inherit'
-  ]}
-];
+    },
+    styles: {
+      'justify-self': [
+        'auto', 'start', 'end', 'center', 'stretch'
+      ],
+      'align-self': [
+        'auto', 'start', 'end', 'center', 'stretch'
+      ],
+      'justify-items': [
+        'auto', 'start', 'end', 'center', 'stretch'
+      ],
+      'align-items': [
+        'auto', 'start', 'end', 'center', 'stretch'
+      ],
+      'justify-content': [
+        'auto', 'start', 'end', 'center', 'stretch', 'space-around', 'space-between', 'space-evenly'
+      ],
+      'align-content': [
+        'auto', 'start', 'end', 'center', 'stretch', 'space-around', 'space-between', 'space-evenly'
+      ]
+    }
+  },
+  methods: {
+    closeController: function (e) {
+      e.preventDefault()
+      this.controllerPanel.isActive = !this.controllerPanel.isActive
+    },
+    selectItem: function (item, key, e) {
+      e.preventDefault()
+      this.items.forEach(function (ele, i) {
+        ele.isSelected = false
+      })
+      if (this.currentItem.id === item.id) {
+        this.currentItem = {}
+        item.isSelected = false
+      } else {
+        this.currentItem = item
+        item.isSelected = true
+      }
+    },
+    addItem: function () {
+      let newItem = {}
+      newItem.style = Object.assign({}, this.defaultItem.style)
+      newItem.id = gridHelper.stringGen(5)
+      this.items.push(newItem)
+      console.log(newItem, this.items)
+    },
+    removeItem: function (key) {
+      this.items.splice(key, 1)
+    }
+  },
+  computed: {
+    gridGradient: function () {
+      let containerWidth = $('#grid-container').width()
+      let containerHeight = $('#grid-container').height()
+      let columnNum = this.layout.grid['grid-auto-columns']
+      let rowNum = this.layout.grid['grid-auto-rows']
+      let columnGap = parseInt(this.layout.grid['grid-column-gap'])
+      let rowGap = parseInt(this.layout.grid['grid-row-gap'])
+      let columnWidth = (containerWidth - (columnGap * (columnNum - 1))) / columnNum
+      let rowHeight = (containerHeight - (rowGap * (rowNum - 1))) / rowNum
+      this.layout.measure.width = columnWidth
+      this.layout.measure.height = rowHeight
 
-var inlineProp = [
-  // {
-  //   propName: 'flex',
-  //   props: [
-  // 'auto','1','2','3','4','5'
-  // ]},
-  {
-    propName: 'flex-grow',
-    props: [ '0','1','2','3','4','5','auto'
-  ]},
-  {
-    propName: 'flex-shrink',
-    props: [ '0','1','2','3','4','5','auto'
-  ]},
-  {
-    propName: 'flex-basis',
-    props: [ '0','1','2','100px','200px','300px','400px','20%','30%', 'auto'
-  ]},
-  {
-    propName: 'align-self',
-    props: [ 'auto' , 'flex-start' , 'flex-end' , 'center' , 'baseline' , 'stretch'
-  ]},
-  {
-    propName: 'background-color',
-    props: [ 'cyan','palegreen','orange','purple','deepskyblue','gray','coral','HotPink'
-  ]},
-  {
-    propName: 'width',
-    props: [ '100px','200px','10%','20%','30%','10vh','20vh'
-  ]},
-  {
-    propName: 'height',
-    props: [ '200px','400px','10%','20%','30%','10vh','20vh'
-  ]},
-  {
-    propName: 'padding',
-    props: [ '10px','20px','10vh','20vh'
-  ]}
-];
+      let columns = gridHelper.createBg(columnWidth, columnGap, columnNum)
+      let rows = gridHelper.createBg(rowHeight, rowGap, rowNum)
 
+      // let str = `to right, ${columns}`
+      return `linear-gradient(to right, ${columns}), linear-gradient(to bottom, ${rows})`
+    },
+    showPxLayout: function () {
+      let columnNum = this.layout.grid['grid-auto-columns']
+      let rowNum = this.layout.grid['grid-auto-rows']
+      let justifyItems = this.layout.grid['justify-items']
+      let alignItems = this.layout.grid['align-items']
+      let justifyContent = this.layout.grid['justify-content']
+      let alignContent = this.layout.grid['align-content']
+      return {
+        'grid-auto-columns': this.layout.measure.width + 'px',
+        'grid-auto-rows': this.layout.measure.height + 'px',
+        'grid-column-gap': this.layout.grid['grid-column-gap'] + 'px',
+        'grid-row-gap': this.layout.grid['grid-row-gap'] + 'px',
+        'justify-items': this.layout.grid['justify-items'],
+        'align-items': this.layout.grid['align-items'],
+        'justify-content': this.layout.grid['justify-content'],
+        'align-content': this.layout.grid['align-content']
+      }
+    },
+    showFrLayout: function () {
+      let columnNum = this.layout.grid['grid-auto-columns']
+      let rowNum = this.layout.grid['grid-auto-rows']
+      let justifyItems = this.layout.grid['justify-items']
+      let alignItems = this.layout.grid['align-items']
+      let justifyContent = this.layout.grid['justify-content']
+      let alignContent = this.layout.grid['align-content']
+      return {
+        'grid-auto-columns': this.layout.grid['grid-auto-columns'] + 'fr',
+        'grid-auto-rows': this.layout.grid['grid-auto-rows'] + 'fr',
+        'grid-column-gap': this.layout.grid['grid-column-gap'] + 'px',
+        'grid-row-gap': this.layout.grid['grid-row-gap'] + 'px',
+        'justify-items': this.layout.grid['justify-items'],
+        'align-items': this.layout.grid['align-items'],
+        'justify-content': this.layout.grid['justify-content'],
+        'align-content': this.layout.grid['align-content']
+      }
+    }
+  }
+})
 

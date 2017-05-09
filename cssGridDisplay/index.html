@@ -2,54 +2,244 @@
 <html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <title>Grid Layout</title>
+  <title>Dynamic Modal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <link rel="stylesheet" href="../stylesheets/secret.css">
-<script src="https://code.angularjs.org/1.4.3/angular.min.js"></script>
-<script src="../cssFlex/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <style>
-* {box-sizing: border-box;}
-
-.wrap {
-  max-width: 940px;
-  margin: 0 auto;
+html, body {
+	margin: 0;
+	padding: 0;
 }
 
-.orange {
-  background: orange;
+.container {
+	/*max-width: 960px;*/
+	height: 100vh;
+	/*margin: 0 auto;*/
+}
+
+
+.grid-view {
+	display: grid;
+	grid-auto-flow: column;
+	width: 100%;
+	height: 100vh;
+}
+.grid {
+	display: grid;
+}
+
+.controller {
+	/*position: fixed;
+	bottom: 0;
+	z-index: 999999999999;
+	width: 100%;*/
+	padding: 15px;
+	background-color: #fafafa;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .16);
+	transition: .5s transform;
+	transform: translateY(0);
+}
+.controller.active {
+	/*transform: translateY(100%);*/
+}
+.controller-close {
+	position: relative;
+}
+.close-btn {
+	position: absolute;
+	top: -38px;
+	right: 0;
+	width: 24px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	background-color: #fafafa;
+	display: inline-block;
+	border-radius: 3px;
+	z-index: 1;
+}
+.grid-column {
+	grid-auto-flow: column;
+}
+.grid-gap {
+	grid-gap: 15px;
+}
+.grid-1 {
+	grid-auto-columns: 1fr;
+}
+.item {
+	background-color: orange;
+	cursor: pointer;
+	position: relative;
+}
+.item.selected {
+	box-shadow: 0 0 0 2px yellow;
+}
+.handler {
+	position: absolute;
+	padding: 10px;
+	background-color: #fafafa;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, .16);
+	right: 0;
+	top: 0;
+	transform: translateX(100%);
+	min-width: 300px;
+}
+.item .box {
+	height: 20px;
+	width: 20px;
+	background-color: red;
 }
 </style>
 
-<div class="container"  ng-controller="appCtrl as app">
-	<div class="flex">
-		<div class="flex-1" ng-repeat="(key ,item) in app.wrapProps">
-			<lable ng-bind="item.propName"></lable>
-			<select ng-model="item.value"
-			        ng-change="app.choseProp(app.wrapProps)"
-			        ng-options="item for item in item.props">
-				<option value=""> --請選擇-- </option>
-			</select>
-		</div>
-	</div>
-	<div class="demo flexWrap mtm mbm"
-			ng-style="app.flexWrap">
-		<div ng-repeat="(key ,flex) in app.flexitems" ng-style="flex.style">
-			<div ng-repeat="(key ,inline) in app.inlineProps"  class="pull-left mrs">
-				<lable ng-bind="inline.propName"></lable>
-				<select ng-model="flex.style[inline.propName]"
-				      ng-change="app.choseProp()"
-				      ng-options="item for item in inline.props">
-					<option value=""> --請選擇-- </option>
-				</select>
+<div id="app" class="grid grid-column ">
+	<div class="container">
+		<div v-bind:style="{ 'background-image': gridGradient }">
+			<div id="grid-container" class="grid-view" v-bind:style="showPxLayout">
+
+				<div class="item" v-for="(item, key) in items" v-bind:class="{ 'selected': item.isSelected }" 
+					v-bind:style="item.style" >
+					<div @click="selectItem(item, key, $event)" style="position: absolute; height: 100%; width: 100%;"></div>
+					<div class="box"></div>
+					<div class="handler" v-if="item.isSelected">
+						<div class="grid grid-column grid-gap">
+							<div class="form-group">
+								<label for="">grid-column-start</label>
+								<input type="text" v-model="item.style['grid-column-start']" class="form-control input-sm">
+							</div>
+							<div class="form-group">
+								<label for="">grid-column-end</label>
+								<input type="text" v-model="item.style['grid-column-end']" class="form-control input-sm">
+							</div>
+						</div>
+						
+						<div class="grid grid-column grid-gap">
+							<div class="form-group">
+								<label for="">grid-row-start</label>
+								<input type="text" v-model="item.style['grid-row-start']" class="form-control input-sm">
+							</div>
+							<div class="form-group">
+								<label for="">grid-row-end</label>
+								<input type="text" v-model="item.style['grid-row-end']" class="form-control input-sm">
+							</div>
+						</div>
+						<div class="grid grid-column grid-gap">
+							<div class="form-group">
+								<label for="">justify-self</label>
+								<select v-model="item.style['justify-self']" class="form-control input-sm">
+									<option v-bind:value="option" v-for="option in styles['justify-self']">{{ option }}</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="">align-self</label>
+								<select v-model="item.style['align-self']" class="form-control input-sm">
+									<option v-bind:value="option" v-for="option in styles['align-self']">{{ option }}</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="grid grid-column grid-gap">
+							<div class="form-group">
+								<label for="">background-color</label>
+								<input type="color" v-model="item.style['background-color']" class="form-control input-sm">
+							</div>
+							<div class="form-group">
+								<label for="">z-index</label>
+								<input type="number" v-model="item.style['z-index']" class="form-control input-sm">
+							</div>
+						</div>
+						<div class="text-right">
+							<button class="btn btn-sm btn-outline-danger" @click="removeItem(key)">移除這個 Item</button>
+						</div>
+					</div>
+					
+				</div>
+			
 			</div>
-			<a class="btn btn-xs btn-danger mtm" ng-click="app.removeObject(key)">移除本元件</a>
 		</div>
 	</div>
-	<button ng-click="app.addNewFlex()" class="btn btn-primary btn-sm">新增元件</button>
+
+	<div class="controller grid-1" v-bind:class="{ 'active': !controllerPanel.isActive }">
+		<div class="controller-close">
+			<a href="#" class="close-btn" @click="closeController($event)">x</a>
+		</div>
+		<div class="grid grid-gap">
+			<div class="grid-1">
+				<h4>外層 Template</h4>
+				<div class="grid grid-column grid-gap">
+					<div class="form-group">
+						<label for="">Column 數量</label>
+						<input type="number" v-model="layout.grid['grid-auto-columns']" class="form-control input-sm">
+					</div>
+					<div class="form-group">
+						<label for="">Row 數量</label>
+						<input type="number" v-model="layout.grid['grid-auto-rows']" class="form-control input-sm">
+					</div>
+				</div>
+				
+				<div class="grid grid-column grid-gap">
+					<div class="form-group">
+						<label for="">Column Gap</label>
+						<input type="number" v-model="layout.grid['grid-column-gap']" class="form-control input-sm">
+					</div>
+					<div class="form-group">
+						<label for="">Row Gap</label>
+						<input type="number" v-model="layout.grid['grid-row-gap']" class="form-control input-sm">
+					</div>
+				</div>
+
+				<div class="grid grid-column grid-gap">
+					<div class="form-group">
+						<label for="">justify-items</label>
+						<select v-model="layout.grid['justify-items']" class="form-control input-sm">
+							<option v-bind:value="option" v-for="option in styles['justify-items']">{{ option }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="">align-items</label>
+						<select v-model="layout.grid['align-items']" class="form-control input-sm">
+							<option v-bind:value="option" v-for="option in styles['align-items']">{{ option }}</option>
+						</select>
+					</div>
+				</div>
+				<div class="grid grid-column grid-gap">
+					<div class="form-group">
+						<label for="">justify-content</label>
+						<select v-model="layout.grid['justify-content']" class="form-control input-sm">
+							<option v-bind:value="option" v-for="option in styles['justify-content']">{{ option }}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="">align-content</label>
+						<select v-model="layout.grid['align-content']" class="form-control input-sm">
+							<option v-bind:value="option" v-for="option in styles['align-content']">{{ option }}</option>
+						</select>
+					</div>
+				</div>
+				
+			</div>
+			<div class="grid-1">
+				<h4>內層元件</h4>
+				
+				<div v-if="currentItem.id">
+					
+				</div>
+				<div class="form-group text-right">
+					
+					<button class="btn btn-sm btn-outline-primary" @click="addItem()">新增 Item</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+<script src="all.js"></script>
 
   <nav style="
   	position: fixed;
@@ -64,7 +254,7 @@
   	<div>
   		<a href="../">FrontendWorkshop</a>
   		<span style="color: #ccc"> | </span>
-  		<span style="color: #999">Grid Layout</span>
+  		<span style="color: #999">Dynamic Modal</span>
   	</div>
   </nav>
 </body>
