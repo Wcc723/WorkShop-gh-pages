@@ -57,7 +57,9 @@ let app = new Vue({
           'grid-row-start': 2,
           'grid-row-end': 3,
           'background-color': 'rgb(244, 36, 0)',
-          'z-index': 1
+          'z-index': 1,
+          'justify-self': 'auto',
+          'align-self': 'auto'
         }
       }
     ],
@@ -73,8 +75,8 @@ let app = new Vue({
         'grid-row-end': 2,
         'background-color': 'rgb(0, 0, 0)',
         'z-index': 1,
-        'justify-self': '',
-        'align-self': ''
+        'justify-self': 'auto',
+        'align-self': 'auto'
       }
     },
     controllerPanel: {
@@ -155,10 +157,6 @@ let app = new Vue({
     showPxLayout: function () {
       let columnNum = this.layout.grid['grid-auto-columns']
       let rowNum = this.layout.grid['grid-auto-rows']
-      let justifyItems = this.layout.grid['justify-items']
-      let alignItems = this.layout.grid['align-items']
-      let justifyContent = this.layout.grid['justify-content']
-      let alignContent = this.layout.grid['align-content']
       return {
         'grid-auto-columns': this.layout.measure.width + 'px',
         'grid-auto-rows': this.layout.measure.height + 'px',
@@ -173,10 +171,6 @@ let app = new Vue({
     showFrLayout: function () {
       let columnNum = this.layout.grid['grid-auto-columns']
       let rowNum = this.layout.grid['grid-auto-rows']
-      let justifyItems = this.layout.grid['justify-items']
-      let alignItems = this.layout.grid['align-items']
-      let justifyContent = this.layout.grid['justify-content']
-      let alignContent = this.layout.grid['align-content']
       return {
         'grid-auto-columns': this.layout.grid['grid-auto-columns'] + 'fr',
         'grid-auto-rows': this.layout.grid['grid-auto-rows'] + 'fr',
