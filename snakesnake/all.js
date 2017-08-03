@@ -1,6 +1,7 @@
 let app = new Vue({
   el: '#app',
   data: {
+    timer: null,
     layout: {
       maxColumn: 50,
       maxRow: 50
@@ -22,14 +23,17 @@ let app = new Vue({
       style: {
         'grid-column-start': 37,
         'grid-row-start': 42,
-        'background-color': 'green'
+        'background-color': '#EC5D57'
       }
-    }
+    },
+    score: 0,
+    scoreBase: 1,
+    speed: 100,
+    isSuperMode: false
   },
   methods: {
     changeDirection (e) {
       let vm = this
-      console.log(e.keyCode)
       if (e.keyCode === 37 && vm.direction !== 'right') {
         vm.direction = 'left'
       } else if (e.keyCode === 38 && vm.direction !== 'bottom') {
@@ -68,26 +72,39 @@ let app = new Vue({
           item.style['background-color'] = '#3c9dff'
         }
       })
+      vm.checkDead()
+    },
+    checkDead () {
+      let vm = this
+      let isDead = vm.history.find((item, i) => {
+        return vm.items[0].style['grid-row-start'] === item['grid-row-start'] &&
+          vm.items[0].style['grid-column-start'] === item['grid-column-start']
+      })
+
+      if (isDead) {
+        clearInterval(vm.timer)
+        alert('GG')
+      }
     },
     updateDirect (direction) {
       let vm = this
       if (vm.direction === 'right') {
-        if (vm.items[0].style['grid-column-start'] < vm.layout.maxColumn - 1) {
+        if (vm.items[0].style['grid-column-start'] < vm.layout.maxColumn) {
           vm.items[0].style['grid-column-start'] += 1
         } else {
           vm.items[0].style['grid-column-start'] = 1
         }
       }
       if (vm.direction === 'left') {
-        if (vm.items[0].style['grid-column-start'] > 1) {
+        if (vm.items[0].style['grid-column-start'] > 0) {
           vm.items[0].style['grid-column-start'] -= 1
         } else {
-          vm.items[0].style['grid-column-start'] = vm.layout.maxColumn - 1
+          vm.items[0].style['grid-column-start'] = vm.layout.maxColumn
         }
       }
 
       if (vm.direction === 'bottom') {
-        if (vm.items[0].style['grid-row-start'] < vm.layout.maxRow - 1) {
+        if (vm.items[0].style['grid-row-start'] < vm.layout.maxRow) {
           vm.items[0].style['grid-row-start'] += 1
         } else {
           vm.items[0].style['grid-row-start'] = 1
@@ -95,17 +112,18 @@ let app = new Vue({
       }
 
       if (vm.direction === 'up') {
-        if (vm.items[0].style['grid-row-start'] > 1) {
+        if (vm.items[0].style['grid-row-start'] > 0) {
           vm.items[0].style['grid-row-start'] -= 1
         } else {
-          vm.items[0].style['grid-row-start'] = vm.layout.maxRow - 1
+          vm.items[0].style['grid-row-start'] = vm.layout.maxRow
         }
       }
 
       if (vm.items[0].style['grid-column-start'] === vm.randomItem.style['grid-column-start'] &&
         vm.items[0].style['grid-row-start'] === vm.randomItem.style['grid-row-start']
       ) {
-        vm.itemNumber += 1
+        vm.itemNumber += vm.base
+        vm.score = vm.score + vm.scoreBase // + 1分
         vm.generateNewRandom()
       }
     },
@@ -113,11 +131,37 @@ let app = new Vue({
       let vm = this
       vm.randomItem.style['grid-column-start'] = Math.floor((Math.random() * vm.layout.maxColumn) + 1)
       vm.randomItem.style['grid-row-start'] = Math.floor((Math.random() * vm.layout.maxRow) + 1)
+    },
+    superMode () {
+      let vm = this
+      clearInterval(vm.timer)
+      vm.speed = 35
+      vm.scoreBase = 5
+      vm.itemNumber = vm.itemNumber + 15
+      vm.isSuperMode = true
+      vm.history = []
+      vm.timer = setInterval(() => vm.updatePosition(), vm.speed)
+    },
+    restart () {
+      let vm = this
+      clearInterval(vm.timer)
+      vm.speed = 200
+      vm.scoreBase = 1
+      vm.itemNumber = 10
+      vm.isSuperMode = false
+      vm.items = [{
+        style: {
+          'grid-column-start': 25,
+          'grid-row-start': 25,
+          'background-color': '#0070e0'
+        }
+      }]
+      vm.timer = setInterval(() => vm.updatePosition(), vm.speed)
     }
   },
   mounted () {
     let vm = this
-    setInterval(() => vm.updatePosition(), 100)
+    vm.restart()
     window.addEventListener('keyup', this.changeDirection)
   }
 })
