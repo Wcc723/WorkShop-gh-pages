@@ -139,7 +139,6 @@ let app = new Vue({
       vm.scoreBase = 5
       vm.itemNumber = vm.itemNumber + 15
       vm.isSuperMode = true
-      vm.history = []
       vm.timer = setInterval(() => vm.updatePosition(), vm.speed)
     },
     restart () {
@@ -149,6 +148,7 @@ let app = new Vue({
       vm.scoreBase = 1
       vm.itemNumber = 10
       vm.isSuperMode = false
+      vm.history = []
       vm.items = [{
         style: {
           'grid-column-start': 25,
