@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>可展開的動態相簿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+<div class="container" style="--count: 6">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=1000" alt="">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=2000" alt="">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=3000" alt="">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=4000" alt="">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=5000" alt="">
+  <img src="https://source.unsplash.com/random/600x600?girl,seed=6000" alt="">
+</div>
+
+
+<style>
+html, body {
+  margin: 0;
+  background-color: rgb(33, 35, 37);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  /* 置中語法 */
+  min-height: 100vh;
+}
+
+:root {
+  --magnifier: 3; /* 放大倍率 */
+  --gap: .5rem; /* 物件之間的間隔 */
+  --transition: 0.5s; /* 動態速率 */
+}
+  
+.container {
+  width: 80vw;
+  height: 80vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  /* gap: grid 的物件間隔，亦也能套用在 flex 上 */
+}
+
+img {
+  --width: calc(100% / var(--count)); /* 圖片的數量使用外部傳入的變數進行計算 */
+  --brightness: 0.75;
+  --grayscale: 1;
+
+  width: var(--width);
+  transition: width var(--transition), filter var(--transition);
+  height: 100%;
+  filter: grayscale(var(--grayscale)) brightness(var(--brightness));
+  object-fit: cover;
+  object-position: top center;
+  overflow: hidden;
+}
+
+.container:hover img:hover {
+  /* 當圖片被 hover 時，重新計算被 hover 圖片佔用的空間 */
+  /* 因為 flex 的屬性特性，因此實際的空間不會佔用到以下數值 */
+  /* 100 - (100 / 6) * 3 = 50 */
+  --width: calc( 100% / var(--count) * var(--magnifier));
+  --brightness: 1.15;
+  --grayscale: 0;
+}
+</style>
+<!-- 參考範例：https://codepen.io/jh3y/pen/RwQYVZz -->
+  <nav style="
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 99999999;
+	background-color: rgba(255, 255, 255, .8);
+	padding: 8px 15px;
+	font-size: 14px;
+  ">
+  	<div>
+  		<a href="../">FrontendWorkshop</a>
+  		<span style="color: #ccc"> | </span>
+  		<span style="color: #999">可展開的動態相簿</span>
+  	</div>
+  </nav>
+</body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '556473851118881',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43235390-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</html>
