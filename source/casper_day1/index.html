@@ -1,0 +1,138 @@
+---
+title: Dynamic Modal
+layout: ./source/_layout.html
+engine: ejs
+---
+<link rel="stylesheet" href="../stylesheets/normalize.css">
+<link href="https://fonts.googleapis.com/css?family=Martel:900" rel="stylesheet">
+
+<style>
+  
+.container {
+  margin: 0 auto;
+  max-width: 1140px;
+  height: 100%;
+  position: relative;
+}
+
+/* partials */
+.header {
+  height: 100vh;
+  background-color: orange;
+  background-image: url(images/banner.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+.header-text {
+  position: absolute;
+  left: 25px;
+  bottom: 150px;
+
+}
+.header-text h1 {
+  font-size: 5em;
+}
+
+.section {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+
+/* CSS Grid */
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+  margin-top: -80px;
+  grid-gap: 20px;
+}
+
+
+
+/* utilities */
+.text-mark {
+  background-image: url(images/monkey.jpg);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+h2.text-mark {
+  font-size: 3em;
+}
+.font-martel {
+  font-family: 'Martel', serif;
+}
+.text-white {
+  color: white;
+}
+.h600 {
+  height: 600px;
+}
+.box {
+  height: 450px;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.18);
+  background-color: white;
+}
+.box-left {
+  grid-column-start: 1; 
+  grid-column-end: 7;
+  grid-row-start: 3;
+  grid-row-end: 8;
+  z-index: 3;
+  background-image: url(images/fruit.jpg);
+  background-size: cover;
+}
+.box-right {
+  grid-column-start: 4; 
+  grid-column-end: 12;
+  grid-row-start: 1;
+  grid-row-end: 6;
+  z-index: 1
+}
+.grid-2 {
+  grid-column: 2fr;
+}
+.grid-4 {
+  grid-column: 4fr;
+}
+</style>
+
+
+
+<header class="header font-martel text-white">
+  <div class="container">
+    <div class="header-text">
+      <h1>
+        Mars
+      </h1>
+    </div>
+  </div>
+</header>
+
+
+<div class="container ">
+  <div class="grid h600">
+    <div class="box box-left"></div>
+    <div class="box box-right"></div>
+  </div>
+</div>
+
+<section class="section container">
+  <div class="grid" style="margin-top: 0;">
+    <div class="grid-2" style="align-self: end">
+      <h2 class="text-mark" style="margin: 0;">MARK</h2>
+    </div>
+    <div class="grid-4">
+      <h2>lorem</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid totam voluptatum a! Expedita voluptatum iste ratione ut sunt nobis, obcaecati, quos, dolorum, ducimus illum odio nam eaque! Numquam, excepturi, vitae?
+      </p>
+    </div>
+    <div class="grid-4">
+      <h2>lorem</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid totam voluptatum a! Expedita voluptatum iste ratione ut sunt nobis, obcaecati, quos, dolorum, ducimus illum odio nam eaque! Numquam, excepturi, vitae?
+      </p>
+    </div>
+  </div>
+  
+</section>

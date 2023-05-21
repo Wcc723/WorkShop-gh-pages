@@ -1,0 +1,128 @@
+---
+title: UI 轉 CSS - Part1
+layout: ./source/_layout.html
+engine: ejs
+---
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(//c2.staticflickr.com/6/5569/15181512621_3d66c056b3_h.jpg);
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  z-index: -3;
+  padding: 30px;
+}
+
+.card {
+  padding: 30px;
+  position: relative;
+  /*background-image: url(//c2.staticflickr.com/6/5569/15181512621_3d66c056b3_h.jpg);*/
+  overflow: hidden;
+  box-shadow: 10px 10px 45px rgba(0,0,0,.8), 5px 5px 15px rgba(0,0,0,.3);
+}
+.card .card-bg {
+  background-image: url(//c2.staticflickr.com/6/5569/15181512621_3d66c056b3_h.jpg);
+  position: absolute;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  z-index: 0;
+  -webkit-filter: blur(15px);
+}
+.card .card-header {
+    height: 300px;
+    width: 250px;
+  }
+.card:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.6);
+  mix-blend-mode: darken;
+  z-index: -1;
+}
+.card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-image: linear-gradient(to bottom, rgba(69, 227, 255, 0) 40%, #45e3ff);
+  z-index: 1;
+}
+.card * {
+  position: relative;
+  z-index: 2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: .2rem;
+}
+
+
+/*// text*/
+.text-center {
+  text-align: center;
+}
+.text-white {
+  color: white;
+}
+
+
+/*// margin*/
+.m-b-xl {
+  margin-bottom: 45px;
+}
+
+/*// btn*/
+.btn {
+  background: none;
+  outline: 0;
+  border: 1px solid transparent;
+  line-height: 1.5;
+  padding: .5rem 3rem;
+  cursor: pointer;
+}
+
+.btn-outline {
+  border-color: white;
+  color: white;
+
+}
+.btn-outline:hover {
+  background-color: rgba(255,255,255,.2);
+}
+</style>
+
+<div class="card text-white text-center">
+  <div class="card-bg"></div>
+  <div class="card-header"></div>
+  <div class="m-b-xl card-body">
+    <h2>Contact High</h2>
+    <span>Normal</span>
+
+  </div>
+  <div>
+    <button class="btn btn-outline">Gallery</button>
+  </div>
+</div>

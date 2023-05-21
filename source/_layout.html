@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
+  <% var ogCover %>
+  <% if (ogCover) { %>
+  <meta property="og:image" content="<%= ogCover %>" />
+  <% } %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>

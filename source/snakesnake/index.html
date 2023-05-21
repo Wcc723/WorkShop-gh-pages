@@ -1,0 +1,142 @@
+---
+title: Dynamic Modal
+layout: ./source/_layout.html
+engine: ejs
+---
+<link rel="stylesheet" href="../stylesheets/secret.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Black+Ops+One');
+
+.font-OpsOne {
+	font-family: 'Black Ops One', cursive;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	max-width: 800px;
+}
+
+
+.grid-view {
+	display: grid;
+	grid-auto-flow: column;
+	width: 100%;
+	height: 800px;
+	background-color: #fafafa;
+	grid-auto-columns: 2%;
+  grid-auto-rows: 2%;
+	border: 1px solid #ccc;
+}
+.grid {
+	display: grid;
+}
+
+.controller {
+	/*position: fixed;
+	bottom: 0;
+	z-index: 999999999999;
+	width: 100%;*/
+	padding: 15px;
+	background-color: #fafafa;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .16);
+	transition: .5s transform;
+	transform: translateY(0);
+}
+.controller.active {
+	/*transform: translateY(100%);*/
+}
+.controller-close {
+	position: relative;
+}
+.close-btn {
+	position: absolute;
+	top: -38px;
+	right: 0;
+	width: 24px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	background-color: #fafafa;
+	display: inline-block;
+	border-radius: 3px;
+	z-index: 1;
+}
+.grid-column {
+	grid-auto-flow: column;
+}
+.grid-gap {
+	grid-gap: 15px;
+}
+.grid-1 {
+	grid-auto-columns: 1fr;
+}
+.item {
+	/* background-color: orange; */
+	cursor: pointer;
+	position: relative;
+}
+.item.selected {
+	box-shadow: 0 0 0 2px yellow;
+}
+.handler {
+	position: absolute;
+	padding: 10px;
+	background-color: #fafafa;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, .16);
+	right: 0;
+	top: 0;
+	transform: translateX(100%);
+	min-width: 300px;
+}
+.item .box {
+	height: 20px;
+	width: 20px;
+	background-color: red;
+}
+.d-flex {
+	display: flex;
+}
+.flex-between {
+	justify-content: space-between
+}
+.flex-align-center {
+	align-items: center
+}
+</style>
+
+<div id="app">
+	<div class="container">
+		<div class="d-flex flex-between flex-align-center">
+			<div class="font-OpsOne" >
+				Score: <span style="font-size: 36px; font-style: italic">{{ score }}</span>
+			</div>
+			<div>
+				<button class="btn btn-outline-primary" @click="superMode()" :disabled="isSuperMode">超級模式</button>
+				<button class="btn btn-outline-primary" @click="restart()">Restart</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div id="grid-container" class="grid-view">
+
+			<div class="item" v-for="(item, key) in items" 
+				v-bind:style="item.style" >					
+			</div>
+
+			<div class="item" 
+				v-bind:style="randomItem.style" >					
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+<script src="all.js"></script>

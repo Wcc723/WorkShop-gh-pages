@@ -4,18 +4,18 @@
   "description": "## angular validation",
   "main": "gulpfile.js",
   "dependencies": {
+    "gulp": "^4.0.2",
     "gulp-gh-pages": "^0.5.4",
-    "gulp": "^3.9.0",
-    "gulp-webserver": "^0.9.1"
+    "gulp-sass": "^5.1.0",
+    "gulp-webserver": "^0.9.1",
+    "sass": "^1.52.2"
   },
   "devDependencies": {
     "consolidate": "^0.13.1",
     "ejs": "^2.3.4",
-    "gulp": "^3.9.0",
     "gulp-front-matter": "^1.3.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-layout": "0.0.3",
-    "gulp-sass": "^2.1.1",
     "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "mocha": "^2.3.4"
