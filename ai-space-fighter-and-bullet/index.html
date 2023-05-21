@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>戰機閃躲子彈遊戲</title>
+  
+  
+  <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/casper-de5d5.appspot.com/o/images%2Fblog%2F%E8%B2%BC%E4%B8%8A%E7%9A%84%E5%BD%B1%E5%83%8F_2022_6_10_19_29.png?alt=media&amp;token=6b5617da-07b5-4723-98c7-ca7c31a463cd" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <style>
+  canvas {
+    border: 1px solid rgba(255, 255, 255, .3);
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url("bg-tile.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script src="all.js"></script>
+
+  <nav style="
+  	position: fixed;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	z-index: 99999999;
+	background-color: rgba(255, 255, 255, .8);
+	padding: 8px 15px;
+	font-size: 14px;
+  ">
+  	<div>
+  		<a href="../">FrontendWorkshop</a>
+  		<span style="color: #ccc"> | </span>
+  		<span style="color: #999">戰機閃躲子彈遊戲</span>
+  	</div>
+  </nav>
+</body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '556473851118881',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43235390-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</html>
