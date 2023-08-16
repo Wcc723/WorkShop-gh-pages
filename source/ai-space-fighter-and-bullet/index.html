@@ -1,0 +1,23 @@
+---
+title: 戰機閃躲子彈遊戲
+layout: ./source/_layout.html
+engine: ejs
+ogCover: https://firebasestorage.googleapis.com/v0/b/casper-de5d5.appspot.com/o/images%2Fblog%2F%E8%B2%BC%E4%B8%8A%E7%9A%84%E5%BD%B1%E5%83%8F_2022_6_10_19_29.png?alt=media&token=6b5617da-07b5-4723-98c7-ca7c31a463cd
+---
+<style>
+  canvas {
+    border: 1px solid rgba(255, 255, 255, .3);
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url("bg-tile.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script src="all.js"></script>
