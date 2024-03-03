@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- 來源：https://codepen.io/noeldelgado/pen/BaogqYy -->
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        overflow: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica,
+          Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+      }
+
+      h1 {
+        font-size: 5rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        background: #f0f0f0;
+      }
+
+      ul {
+        padding-left: 1rem;
+        list-style: none;
+      }
+
+      li {
+        flex-shrink: 0;
+        width: clamp(500px, 60vw, 800px);
+        padding-right: 1rem;
+      }
+
+      header {
+        height: 100vh;
+      }
+      footer {
+        height: 50vh;
+      }
+
+      :any-link {
+        color: #4e9815;
+      }
+
+      .d-flex {
+        display: flex;
+      }
+      .align-items-center {
+        align-items: center;
+      }
+      .justify-content-center {
+        justify-content: center;
+      }
+
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: black;
+        color: white;
+      }
+
+      .demo-wrapper {
+        overflow-x: hidden;
+      }
+
+      .wrapper {
+        display: flex;
+      }
+
+      .demo-gallery:not(.last) {
+        padding-bottom: 1rem;
+      }
+
+      .demo-text .text {
+        font-size: clamp(8rem, 15vw, 16rem);
+        line-height: 1;
+        font-weight: 900;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader d-flex align-items-center justify-content-center">
+      <div>
+        <h1>Loading</h1>
+        <h2 class="loader--text">0%</h2>
+      </div>
+    </div>
+    <div class="demo-wrapper">
+      <header class="d-flex align-items-center justify-content-center">
+        <div>
+          <h1>ScrollTrigger</h1>
+          <h2>滾動觸發範例</h2>
+        </div>
+      </header>
+      <section class="demo-text">
+        <div class="wrapper text">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+      </section>
+      <section class="demo-gallery">
+        <ul class="wrapper">
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=149"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=178"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=5"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=128"
+              width="1240"
+            />
+          </li>
+        </ul>
+      </section>
+      <section class="demo-gallery">
+        <ul class="wrapper">
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=166"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=23"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=106"
+              width="1240"
+            />
+          </li>
+        </ul>
+      </section>
+      <section class="demo-gallery">
+        <ul class="wrapper">
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=41"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=171"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=106"
+              width="1240"
+            />
+          </li>
+        </ul>
+      </section>
+      <section class="demo-gallery">
+        <ul class="wrapper">
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=60"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=53"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=38"
+              width="1240"
+            />
+          </li>
+          <li>
+            <img
+              height="874"
+              src="https://source.unsplash.com/random/1240x874?sig=83"
+              width="1240"
+            />
+          </li>
+        </ul>
+      </section>
+      <section class="demo-text">
+        <div class="wrapper text">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+      </section>
+      <footer class="d-flex align-items-center justify-content-center">
+        <p>
+          Images from <a href="https://unsplash.com/">Unsplash</a>
+          <br />
+          來源：<a href="https://codepen.io/noeldelgado/pen/BaogqYy"
+            >https://codepen.io/noeldelgado/pen/BaogqYy</a
+          >
+        </p>
+      </footer>
+    </div>
+    <script>
+      // 註冊 ScrollTrigger 插件，以便後面使用
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 將所有<img>元素轉換為一個陣列，方便後續操作
+      const images = gsap.utils.toArray('img');
+      // 選擇進度條文字元素
+      const loader = document.querySelector('.loader--text');
+      // 定義一個函數來更新加載進度條的文字
+      const updateProgress = (instance) =>
+        (loader.textContent = `${Math.round(
+          (instance.progressedCount * 100) / images.length,
+        )}%`);
+
+      // 圖片全部加載完成後顯示的效果
+      const showDemo = () => {
+        // 允許頁面滾動
+        document.body.style.overflow = 'auto';
+        // 滾動到頁面頂部
+        document.scrollingElement.scrollTo(0, 0);
+        // 隱藏加載器動畫
+        gsap.to(document.querySelector('.loader'), { autoAlpha: 0 });
+
+        // 對每一個<section>進行操作
+        gsap.utils.toArray('section').forEach((section, index) => {
+          // 選擇每個<section>中的.wrapper元素
+          const wrapper = section.querySelector('.wrapper');
+
+          // 使用gsap的fromTo方法來創建滾動動畫
+          if (index % 2) {
+            // 如果是奇數索引的section
+            const x = '100%';
+            const xEnd = (wrapper.scrollWidth - section.offsetWidth) * -1; // scroll 包含不可見的總寬，offsetWidth總寬度
+            gsap.fromTo(
+              wrapper,
+              { x },
+              {
+                x: xEnd,
+                // 使用 ScrollTrigger 來觸發和控制滾動動畫
+                scrollTrigger: {
+                  trigger: section, // 指定觸發動畫的元素
+                  scrub: 0.5, // 啟用滾動拖動效果，數值表示拖動靈敏度
+                },
+              },
+            );
+          } else {
+            // 如果是偶數索引的section
+            const x = wrapper.scrollWidth * -1;
+            const xEnd = 0;
+            gsap.fromTo(
+              wrapper,
+              { x },
+              {
+                x: xEnd,
+                // 使用 ScrollTrigger 來觸發和控制滾動動畫
+                scrollTrigger: {
+                  trigger: section, // 指定觸發動畫的元素
+                  scrub: 0.5, // 啟用滾動拖動效果，數值表示拖動靈敏度
+                },
+              },
+            );
+          }
+        });
+      };
+
+      // 使用 imagesLoaded 函式庫來監聽圖片加載進度和完成事件
+      // 'progress' 事件用於更新加載進度，'always' 事件在所有圖片加載完成後觸發
+      imagesLoaded(images)
+        .on('progress', updateProgress)
+        .on('always', showDemo);
+    </script>
+  </body>
+</html>
